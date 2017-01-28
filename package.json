@@ -14,6 +14,9 @@
   "author": "Adam Tyler",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
     "css-loader": "^0.26.1",
     "node-sass": "^4.4.0",
     "postcss-loader": "^1.2.2",
