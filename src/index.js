@@ -19,8 +19,8 @@ class DiceContainer extends Component {
   render() {
     return (
       <div className="dice-container">
-        <Die />
-        <Die />
+        <Die sides={6} rollTime={3000} />
+        <Die sides={6} rollTime={3000} />
       </div>
     )
   }

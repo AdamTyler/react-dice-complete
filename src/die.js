@@ -7,18 +7,29 @@ class Die extends Component {
     // this.sides = props.sides || 6
     // this.color = options.color || '#f1f1f1'
     // this.currentValue = options.currentValue || this.getRandomInt(1, this.sides)
+    this.rollDie = this.rollDie.bind(this)
   }
 
-  getRandomInt(min, max) {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min)) + min
+  getRandomInt() {
+    let min = 1
+    let max = Math.ceil(this.props.sides)
+    return Math.floor(Math.random() * max) + min
+  }
+
+  rollDie() {
+    this.die.classList = 'die roll'
+    setTimeout(() => {
+      let roll = this.getRandomInt()
+          console.log('roll it', roll);
+      this.die.classList.remove('roll')
+      this.die.classList.add(`show-${roll}`)
+    }, this.props.rollTime)
   }
 
   render() {
     return (
-      <div className="die">
-         <div className="face front">
+      <div className="die" onClick={this.rollDie} ref={die => this.die = die}>
+         <div className="face six">
             <span className="dot"></span>
             <span className="dot"></span>
             <span className="dot"></span>
@@ -26,26 +37,26 @@ class Die extends Component {
             <span className="dot"></span>
             <span className="dot"></span>
          </div>
-         <div className="face back">
+         <div className="face one">
             <span className="dot"></span>
          </div>
-         <div className="face right">
+         <div className="face five">
             <span className="dot"></span>
             <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-         </div>
-         <div className="face left">
-            <span className="dot"></span>
-            <span className="dot"></span>
-         </div>
-         <div className="face top">
             <span className="dot"></span>
             <span className="dot"></span>
             <span className="dot"></span>
          </div>
-         <div className="face bottom">
+         <div className="face two">
+            <span className="dot"></span>
+            <span className="dot"></span>
+         </div>
+         <div className="face three">
+            <span className="dot"></span>
+            <span className="dot"></span>
+            <span className="dot"></span>
+         </div>
+         <div className="face four">
             <span className="dot"></span>
             <span className="dot"></span>
             <span className="dot"></span>
