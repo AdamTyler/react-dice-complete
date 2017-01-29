@@ -4,9 +4,9 @@ class Die extends Component {
 
   constructor(props) {
     super(props)
-    // this.sides = props.sides || 6
-    // this.color = options.color || '#f1f1f1'
-    // this.currentValue = options.currentValue || this.getRandomInt(1, this.sides)
+    this.state = {
+      currentValue: 6
+    }
     this.rollDie = this.rollDie.bind(this)
   }
 
@@ -20,7 +20,7 @@ class Die extends Component {
     this.die.classList = 'die roll'
     setTimeout(() => {
       let roll = this.getRandomInt()
-          console.log('roll it', roll);
+      this.setState({currentValue: roll})
       this.die.classList.remove('roll')
       this.die.classList.add(`show-${roll}`)
     }, this.props.rollTime)
@@ -28,40 +28,42 @@ class Die extends Component {
 
   render() {
     return (
-      <div className="die" onClick={this.rollDie} ref={die => this.die = die}>
-         <div className="face six">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-         </div>
-         <div className="face one">
-            <span className="dot"></span>
-         </div>
-         <div className="face five">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-         </div>
-         <div className="face two">
-            <span className="dot"></span>
-            <span className="dot"></span>
-         </div>
-         <div className="face three">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-         </div>
-         <div className="face four">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-         </div>
+      <div className="die-container" onClick={this.rollDie}>
+        <div className="die" ref={die => this.die = die}>
+           <div className="face six">
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+           </div>
+           <div className="face one">
+              <span className="dot"></span>
+           </div>
+           <div className="face five">
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+           </div>
+           <div className="face two">
+              <span className="dot"></span>
+              <span className="dot"></span>
+           </div>
+           <div className="face three">
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+           </div>
+           <div className="face four">
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+           </div>
+        </div>
       </div>
     )
   }

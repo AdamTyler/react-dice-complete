@@ -6,67 +6,44 @@ main {
   align-items: center;
 }
 
-.die {
+.die-container {
+  margin: 10px;
   display: inline-block;
-  margin: 20px;
+}
+
+.die {
+  transition: transform 0.4s ease;
   width: 60px;
   height: 60px;
   position: relative;
+  transform: rotateX(0deg) rotateY(0deg) translateX(0);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 
   &.roll {
     transform-style: preserve-3d;
     animation-name: rotate;
     animation-iteration-count: 1;
-    animation-duration: 3s;
+    animation-duration: 2s;
     animation-timing-function: linear;
   }
-
   &.show-6 {
-    transform-style: preserve-3d;
-    animation-name: rotate-to-6;
-    animation-iteration-count: 1;
-    animation-duration: 0.3s;
-    animation-timing-function: linear;
+    transform: rotateX(0deg) rotateY(0deg);
   }
   &.show-5 {
-    transform-style: preserve-3d;
-    transform: rotateX(0deg) rotateY(0deg) translateX(0);
-    animation-name: rotate-to-5;
-    animation-iteration-count: 1;
-    animation-duration: 0.3s;
-    animation-timing-function: linear;
+    transform: rotateY(-90deg);
   }
   &.show-4 {
-    transform-style: preserve-3d;
-    transform: rotateX(0deg) rotateY(0deg) translateX(0);
-    animation-name: rotate-to-4;
-    animation-iteration-count: 1;
-    animation-duration: 0.3s;
-    animation-timing-function: linear;
+    transform: rotateX(90deg);
   }
   &.show-3 {
-    transform-style: preserve-3d;
-    transform: rotateX(0deg) rotateY(0deg) translateX(0);
-    animation-name: rotate-to-3;
-    animation-iteration-count: 1;
-    animation-duration: 0.3s;
-    animation-timing-function: linear;
+    transform: rotateX(-90deg);
   }
   &.show-2 {
-    transform-style: preserve-3d;
-    transform: rotateX(0deg) rotateY(0deg) translateX(0);
-    animation-name: rotate-to-2;
-    animation-iteration-count: 1;
-    animation-duration: 0.3s;
-    animation-timing-function: linear;
+    transform: rotateY(90deg);
   }
   &.show-1 {
-    transform-style: preserve-3d;
-    transform: rotateX(0deg) rotateY(0deg) translateX(0);
-    animation-name: rotate-to-1;
-    animation-iteration-count: 1;
-    animation-duration: 0.3s;
-    animation-timing-function: linear;
+    transform: rotateY(180deg);
   }
 
   .face {
@@ -217,31 +194,5 @@ main {
     90% { transform: rotateX(-270deg) rotateY(270deg) rotateZ(360deg) translateX(0); }
     100% { transform: rotateX(270deg) rotateY(-270deg) rotateZ(360deg) translateX(0); }
   }
-
-  @keyframes rotate-to-6 {
-    0% { transform: rotateX(270deg) rotateY(-270deg) rotateZ(360deg) translateX(0); }
-    100% { transform: rotateY(0deg) translateZ(30px) translateX(0); }
-  }
-  @keyframes rotate-to-5 {
-    0% { transform: rotateX(270deg) rotateY(-270deg) rotateZ(360deg) translateX(0); }
-    100% { transform: rotateX(0deg) rotateY(90deg) translateZ(30px) translateX(0); }
-  }
-  @keyframes rotate-to-4 {
-    0% { transform: rotateX(270deg) rotateY(-270deg) rotateZ(360deg) translateX(0); }
-    100% { transform: rotateX(-90) translateZ(30px) translateX(0); }
-  }
-  @keyframes rotate-to-3 {
-    0% { transform: rotateX(270deg) rotateY(-270deg) rotateZ(360deg) translateX(0); }
-    100% { transform: rotateX(90deg) translateZ(0px) translateX(0); }
-  }
-  @keyframes rotate-to-2 {
-    0% { transform: rotateX(270deg) rotateY(-270deg) rotateZ(360deg) translateX(0); }
-    100% { transform: rotateY(-90deg) translateZ(30px) translateX(0); }
-  }
-  @keyframes rotate-to-1 {
-    0% { transform: rotateX(270deg) rotateY(-270deg) rotateZ(360deg) translateX(0); }
-    100% { transform: rotateY(0deg) translateZ(30px) translateX(0); }
-  }
-
 
 }
