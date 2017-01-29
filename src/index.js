@@ -1,12 +1,15 @@
+import React, { Component } from 'react'
+import {render} from 'react-dom'
+import Die from './die'
+
 import './styles.scss'
-import Dice from './dice.js'
 
+class DiceContainer extends Component {
 
-export default class DiceContainer {
+  constructor(props) {
+    super(props)
 
-  constructor() {
-    let d1 = new Dice();
-    console.log(d1);
+    this.state = {}
   }
 
   rollAll() {
@@ -14,8 +17,13 @@ export default class DiceContainer {
   }
 
   render() {
-    
+    return (
+      <div className="dice-container">
+        <Die />
+        <Die />
+      </div>
+    )
   }
 }
 
-let dc = new DiceContainer();
+render(<DiceContainer/>, document.getElementById('app'));

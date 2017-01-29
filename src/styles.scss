@@ -1,8 +1,154 @@
 main {
-  background-color: #f1f1f1;
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.die {
+  display: inline-block;
+  margin: 20px;
+  width: 60px;
+  height: 60px;
+  position: relative;
+
+  .face {
+    height: 60px;
+    width: 60px;
+    position: absolute;
+    background: #3e6fa0;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+  }
+
+  .front {
+    transform: rotateY(0deg) translateZ(30px);
+
+    span {
+      &:nth-child(1) {
+        top: 10px;
+        left: 12px;
+      }
+      &:nth-child(2) {
+        top: 10px;
+        right: 12px;
+      }
+      &:nth-child(3) {
+        top: 26px;
+        left: 12px;
+      }
+      &:nth-child(4) {
+        top: 26px;
+        right: 12px;
+      }
+      &:nth-child(5) {
+        bottom: 10px;
+        left: 12px;
+      }
+      &:nth-child(6) {
+        bottom: 10px;
+        right: 12px;
+      }
+    }
+  }
+
+  .back {
+    transform: rotateX(180deg) translateZ(30px);
+
+    span {
+      top: 26px;
+      left: 26px;
+    }
+  }
+
+  .right {
+    transform: rotateY(90deg) translateZ(30px);
+
+    span {
+      &:nth-child(1) {
+        top: 12px;
+        left: 12px;
+      }
+      &:nth-child(2) {
+        top: 12px;
+        right: 12px;
+      }
+      &:nth-child(3) {
+        top: 26px;
+        left: 26px;
+      }
+      &:nth-child(4) {
+        bottom: 12px;
+        left: 12px;
+      }
+      &:nth-child(5) {
+        bottom: 12px;
+        right: 12px;
+      }
+    }
+  }
+
+  .left {
+    transform: rotateY(-90deg) translateZ(30px);
+
+    span {
+      &:nth-child(1) {
+        top: 12px;
+        right: 12px;
+      }
+      &:nth-child(2) {
+        bottom: 12px;
+        left: 12px;
+      }
+    }
+  }
+
+  .top {
+    transform: rotateX(90deg) translateZ(30px);
+
+    span {
+      &:nth-child(1) {
+        top: 12px;
+        right: 12px;
+      }
+      &:nth-child(2) {
+        bottom: 12px;
+        left: 12px;
+      }
+      &:nth-child(3) {
+        bottom: 26px;
+        left: 26px;
+      }
+    }
+  }
+  .bottom {
+    transform: rotateX(-90deg) translateZ(30px);
+
+    span {
+      &:nth-child(1) {
+        top: 12px;
+        right: 12px;
+      }
+      &:nth-child(2) {
+        top: 12px;
+        left: 12px;
+      }
+      &:nth-child(3) {
+        bottom: 12px;
+        left: 12px;
+      }
+      &:nth-child(4) {
+        bottom: 12px;
+        right: 12px;
+      }
+    }
+  }
 }
