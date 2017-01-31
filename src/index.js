@@ -52,20 +52,43 @@ class TestApp extends Component {
 
   render() {
     let { state } = this
+    let colorStyle = {height: '2.375rem'}
     return (
       <div className="dice-test">
-        <form className="controls">
-          <h3>Number of Dice</h3>
-          <input type="number" name="numDice" value={state.numDice} onChange={this.handleChange} />
-          <h3>Face Color</h3>
-          <input type="color" name="faceColor" value={state.faceColor} onChange={this.handleChange} />
-          <h3>Dot Color</h3>
-          <input type="color" name="dotColor" value={state.dotColor} onChange={this.handleChange} />
-          <h3>Roll Time</h3>
-          <input type="number" name="rollTime" value={state.rollTime} onChange={this.handleChange} />
-          <span> second(s)</span>
+        <form className="row controls">
+          <fieldset className="form-group col">
+            <label htmlFor="numDice">Number of Dice</label>
+            <input type="number" name="numDice" id="numDice" className="form-control"
+              value={state.numDice} onChange={this.handleChange} />
+          </fieldset>
+          <fieldset className="form-group col">
+            <label htmlFor="faceColor">Face Color</label>
+            <input type="color" name="faceColor" id="faceColor" className="form-control" style={colorStyle}
+              value={state.faceColor} onChange={this.handleChange} />
+          </fieldset>
+          <fieldset className="form-group col">
+            <label htmlFor="dotColor">Dot Color</label>
+            <input type="color" name="dotColor" id="dotColor" className="form-control" style={colorStyle}
+              value={state.dotColor} onChange={this.handleChange} />
+          </fieldset>
+          <fieldset className="form-group">
+            <label htmlFor="rollTime">Roll Time</label>
+            <input type="number" name="rollTime" id="rollTime" className="form-control"
+              value={state.rollTime} onChange={this.handleChange} />
+            <span> second(s) </span>
+          </fieldset>
         </form>
-        <DiceContainer {...this.state} />
+        <div>Click individual dice to roll or {'   '}
+          <button className="btn btn-primary">Roll All</button>
+        </div>
+        <div>Dice Total:
+          <span>33</span>
+        </div>
+        <div className="row dice">
+          <div className="col">
+            <DiceContainer {...this.state} />
+          </div>
+        </div>
       </div>
     )
   }
