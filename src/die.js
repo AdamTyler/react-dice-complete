@@ -23,45 +23,50 @@ class Die extends Component {
       this.setState({currentValue: roll})
       this.die.classList.remove('roll')
       this.die.classList.add(`show-${roll}`)
-    }, this.props.rollTime)
+    }, (this.props.rollTime*1000))
   }
 
   render() {
+    let faceStyle = {background: this.props.faceColor}
+    let dotStyle = {background: this.props.dotColor}
+    let rollStyle = {
+      animationDuration: `${this.props.rollTime}s`
+    }
     return (
       <div className="die-container" onClick={this.rollDie}>
-        <div className="die" ref={die => this.die = die}>
-           <div className="face six">
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
+        <div className="die" ref={die => this.die = die} style={rollStyle}>
+           <div className="face six" style={faceStyle}>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
            </div>
-           <div className="face one">
-              <span className="dot"></span>
+           <div className="face one" style={faceStyle}>
+              <span className="dot" style={dotStyle}></span>
            </div>
-           <div className="face five">
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
+           <div className="face five" style={faceStyle}>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
            </div>
-           <div className="face two">
-              <span className="dot"></span>
-              <span className="dot"></span>
+           <div className="face two" style={faceStyle}>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
            </div>
-           <div className="face three">
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
+           <div className="face three" style={faceStyle}>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
            </div>
-           <div className="face four">
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
+           <div className="face four" style={faceStyle}>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
+              <span className="dot" style={dotStyle}></span>
            </div>
         </div>
       </div>
