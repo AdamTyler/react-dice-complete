@@ -23,14 +23,34 @@ class Die extends Component {
       this.setState({currentValue: roll})
       this.die.classList.remove('roll')
       this.die.classList.add(`show-${roll}`)
+      this.props.rollDone(roll)
     }, (this.props.rollTime*1000))
   }
 
+  getValue() {
+    return this.state.currentValue
+  }
+
+
+  componentDidMount() {
+    // this.props.rollDone(6)
+  }
+
   render() {
-    let faceStyle = {background: this.props.faceColor}
-    let dotStyle = {background: this.props.dotColor}
+    let faceStyle = {
+      background: this.props.faceColor,
+      // height: `${this.props.dieSize}px`,
+      // width: `${this.props.dieSize}px`
+    }
+    let dotStyle = {
+      background: this.props.dotColor,
+      // height: `${this.props.dieSize / }px`,
+      // width: `${this.props.dieSize}px`
+    }
     let rollStyle = {
-      animationDuration: `${this.props.rollTime}s`
+      animationDuration: `${this.props.rollTime}s`,
+      // height: `${this.props.dieSize}px`,
+      // width: `${this.props.dieSize}px`
     }
     return (
       <div className="die-container" onClick={this.rollDie}>
