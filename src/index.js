@@ -1,85 +1,8 @@
 import React, { Component } from 'react'
 import {render} from 'react-dom'
-import Die from './die'
+import DiceContainer from './DiceContainer'
 
 import './styles.scss'
-
-class DiceContainer extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      totalValue: props.numDice * 6
-    }
-    this.dice = []
-
-    this.rollDone = this.rollDone.bind(this)
-    this.rollAll = this.rollAll.bind(this)
-    this.getDiceTotal = this.getDiceTotal.bind(this)
-
-  }
-
-  rollAll() {
-    for (let die of this.dice) {
-      if(die !== null) {
-        die.rollDie()
-      }
-    }
-  }
-
-  rollDone() {
-    this.getDiceTotal()
-  }
-
-  getDiceTotal() {
-    let total = 0
-    for (let die of this.dice) {
-      if(die !== null) {
-        total += die.getValue()
-      }
-    }
-    this.setState({totalValue: total})
-    this.props.totalDisplay(total)
-  }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if(nextProps.numDice !== this.props.numDice) {
-  //     let temp = this.dice.slice()
-  //     let diff = nextProps.numDice - this.props.numDice
-  //     if(diff < 0) {
-  //       temp.splice(diff, Math.abs(diff))
-  //     } else {
-  //       for(let i = 0; i < diff; i++) { temp.push(6) }
-  //     }
-  //     this.dice = temp
-  //   }
-  // }
-
-  componentDidUpdate(prevProps, prevState) {
-    // this.getDiceTotal()
-    // if(prevState.dice !== this.dice) { this.getDiceTotal() }
-  }
-
-  componentDidMount() {
-        this.props.totalDisplay(this.state.totalValue)
-    // this.getDiceTotal()
-  }
-
-  render() {
-    let { props } = this
-    let dice = []
-    for (let i = 0; i < props.numDice; i++) {
-      dice.push(<Die {...props} key={i} rollDone={this.rollDone.bind(this, i)} ref={die => this.dice[i] = die} />)
-    }
-
-    return (
-      <div className="dice">
-        {dice}
-      </div>
-    )
-  }
-}
-
 
 class TestApp extends Component {
 
