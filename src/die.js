@@ -17,22 +17,18 @@ class Die extends Component {
   }
 
   rollDie() {
-    this.die.classList = `die roll${Math.floor(Math.random() * 3) + 1 }`
+    this.die.classList = `die`
+    void this.die.offsetWidth;
+    let roll = this.getRandomInt()
+    this.setState({currentValue: roll})
+    this.die.classList.add(`roll${roll}`)
     setTimeout(() => {
-      let roll = this.getRandomInt()
-      this.setState({currentValue: roll})
-      this.die.classList = `die show-${roll}`
-      this.props.rollDone(roll)
+      this.props.rollDone(this.state.currentValue)
     }, (this.props.rollTime*1000))
   }
 
   getValue() {
     return this.state.currentValue
-  }
-
-
-  componentDidMount() {
-    // this.props.rollDone(6)
   }
 
   render() {

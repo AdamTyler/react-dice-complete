@@ -23,7 +23,6 @@ class TestApp extends Component {
   }
 
   handleChange(e) {
-    console.log('handleChange', e.target.name, e.target.value, e.target.type);
     this.setState({
       [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value, 10) : e.target.value
     })
