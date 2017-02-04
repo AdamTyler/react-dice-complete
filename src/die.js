@@ -35,6 +35,7 @@ class Die extends Component {
     // face styles
     let faceStyle = {
       background: this.props.faceColor,
+      outline: this.props.outline ? `1px solid ${this.props.outlineColor}` : 'none',
       height: `${this.props.dieSize}px`,
       position: 'absolute',
       width: `${this.props.dieSize}px`,

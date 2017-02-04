@@ -9,6 +9,8 @@ class TestApp extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      outline: false,
+      outlineColor: '#000',
       dieSize: 60,
       numDice: 4,
       sides: 6,
@@ -31,6 +33,9 @@ class TestApp extends Component {
       } else if (value > e.target.max) {
         value = e.target.max
       }
+    }
+    if (e.target.type === 'checkbox') {
+      value = !this.state.outline
     }
     this.setState({
       [e.target.name]: value
@@ -75,6 +80,20 @@ class TestApp extends Component {
             <label htmlFor="rollTime">Roll Time (seconds)</label>
             <input type="number" name="rollTime" id="rollTime" className="form-control"
               value={state.rollTime} onChange={this.handleChange} min="1" max="4"/>
+          </fieldset>
+          <fieldset className="form-group col">
+            <div className="form-check">
+              <label className="form-check-label">
+                <input type="checkbox" className="form-check-input" name="outline" id="outline"
+                  checked={state.outline}  onChange={this.handleChange} />
+                {'  '}Outline
+              </label>
+            </div>
+            <div>
+              <input type="color" name="outlineColor" id="outlineColor" className="form-control" style={colorStyle}
+                value={state.outlineColor} onChange={this.handleChange}
+                disabled={!this.state.outline}/>
+            </div>
           </fieldset>
         </form>
         <div className="row info">
