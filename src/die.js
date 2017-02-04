@@ -32,56 +32,74 @@ class Die extends Component {
   }
 
   render() {
+    // face styles
     let faceStyle = {
       background: this.props.faceColor,
-      // height: `${this.props.dieSize}px`,
-      // width: `${this.props.dieSize}px`
+      height: `${this.props.dieSize}px`,
+      position: 'absolute',
+      width: `${this.props.dieSize}px`,
     }
+    let f1Style = { transform: `rotateX(180deg) translateZ(${this.props.dieSize / 2}px)` }
+    let f2Style = { transform: `rotateY(-90deg) translateZ(${this.props.dieSize / 2}px)` }
+    let f3Style = { transform: `rotateX(90deg) translateZ(${this.props.dieSize / 2}px)` }
+    let f4Style = { transform: `rotateX(-90deg) translateZ(${this.props.dieSize / 2}px)` }
+    let f5Style = { transform: `rotateY(90deg) translateZ(${this.props.dieSize / 2}px)` }
+    let f6Style = { transform: `rotateY(0deg) translateZ(${this.props.dieSize / 2}px)` }
+    // dot styles
+    let dotSize = this.props.dieSize / 6 - 2
     let dotStyle = {
       background: this.props.dotColor,
-      // height: `${this.props.dieSize / }px`,
-      // width: `${this.props.dieSize}px`
+      height: `${ dotSize }px`,
+      width: `${ dotSize }px`
     }
+    let d1Style = { top: `${this.props.dieSize/6}px`, left: `${this.props.dieSize/6}px` }
+    let d2Style = { top: `${this.props.dieSize/6}px`, right: `${this.props.dieSize/6}px` }
+    let d3Style = { top: `${this.props.dieSize/2 - dotSize/2}px`, left: `${this.props.dieSize/6}px` }
+    let d4Style = { top: `${this.props.dieSize/2 - dotSize/2}px`, left: `${this.props.dieSize/2 - dotSize/2}px` }
+    let d5Style = { top: `${this.props.dieSize/2 - dotSize/2}px`, right: `${this.props.dieSize/6}px` }
+    let d6Style = { bottom: `${this.props.dieSize/6}px`, left: `${this.props.dieSize/6}px` }
+    let d7Style = { bottom: `${this.props.dieSize/6}px`, right: `${this.props.dieSize/6}px` }
+    // roll styles
     let rollStyle = {
       animationDuration: `${this.props.rollTime}s`,
-      // height: `${this.props.dieSize}px`,
-      // width: `${this.props.dieSize}px`
+      height: `${this.props.dieSize}px`,
+      width: `${this.props.dieSize}px`
     }
     return (
       <div className="die-container" onClick={this.rollDie}>
         <div className="die" ref={die => this.die = die} style={rollStyle}>
-           <div className="face six" style={faceStyle}>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
+           <div className="face six" style={Object.assign({}, faceStyle, f6Style)}>
+              <span className="dot" style={Object.assign({}, dotStyle, d1Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d2Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d3Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d5Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d6Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d7Style)}></span>
            </div>
-           <div className="face one" style={faceStyle}>
-              <span className="dot" style={dotStyle}></span>
+           <div className="face one" style={Object.assign({}, faceStyle, f1Style)}>
+              <span className="dot" style={Object.assign({}, dotStyle, d4Style)}></span>
            </div>
-           <div className="face five" style={faceStyle}>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
+           <div className="face five" style={Object.assign({}, faceStyle, f5Style)}>
+              <span className="dot" style={Object.assign({}, dotStyle, d1Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d2Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d4Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d6Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d7Style)}></span>
            </div>
-           <div className="face two" style={faceStyle}>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
+           <div className="face two" style={Object.assign({}, faceStyle, f2Style)}>
+              <span className="dot" style={Object.assign({}, dotStyle, d2Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d6Style)}></span>
            </div>
-           <div className="face three" style={faceStyle}>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
+           <div className="face three" style={Object.assign({}, faceStyle, f3Style)}>
+              <span className="dot" style={Object.assign({}, dotStyle, d2Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d4Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d6Style)}></span>
            </div>
-           <div className="face four" style={faceStyle}>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
-              <span className="dot" style={dotStyle}></span>
+           <div className="face four" style={Object.assign({}, faceStyle, f4Style)}>
+              <span className="dot" style={Object.assign({}, dotStyle, d1Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d2Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d6Style)}></span>
+              <span className="dot" style={Object.assign({}, dotStyle, d7Style)}></span>
            </div>
         </div>
       </div>

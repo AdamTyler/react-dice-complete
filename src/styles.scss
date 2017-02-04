@@ -82,125 +82,21 @@
 
   .six {
     transform: rotateY(0deg) translateZ(30px);
-
-    span {
-      &:nth-child(1) {
-        top: 10px;
-        left: 12px;
-      }
-      &:nth-child(2) {
-        top: 10px;
-        right: 12px;
-      }
-      &:nth-child(3) {
-        top: 26px;
-        left: 12px;
-      }
-      &:nth-child(4) {
-        top: 26px;
-        right: 12px;
-      }
-      &:nth-child(5) {
-        bottom: 10px;
-        left: 12px;
-      }
-      &:nth-child(6) {
-        bottom: 10px;
-        right: 12px;
-      }
-    }
   }
-
   .one {
     transform: rotateX(180deg) translateZ(30px);
-
-    span {
-      top: 26px;
-      left: 26px;
-    }
   }
-
   .five {
     transform: rotateY(90deg) translateZ(30px);
-
-    span {
-      &:nth-child(1) {
-        top: 12px;
-        left: 12px;
-      }
-      &:nth-child(2) {
-        top: 12px;
-        right: 12px;
-      }
-      &:nth-child(3) {
-        top: 26px;
-        left: 26px;
-      }
-      &:nth-child(4) {
-        bottom: 12px;
-        left: 12px;
-      }
-      &:nth-child(5) {
-        bottom: 12px;
-        right: 12px;
-      }
-    }
   }
-
   .two {
     transform: rotateY(-90deg) translateZ(30px);
-
-    span {
-      &:nth-child(1) {
-        top: 12px;
-        right: 12px;
-      }
-      &:nth-child(2) {
-        bottom: 12px;
-        left: 12px;
-      }
-    }
   }
-
   .three {
     transform: rotateX(90deg) translateZ(30px);
-
-    span {
-      &:nth-child(1) {
-        top: 12px;
-        right: 12px;
-      }
-      &:nth-child(2) {
-        bottom: 12px;
-        left: 12px;
-      }
-      &:nth-child(3) {
-        bottom: 26px;
-        left: 26px;
-      }
-    }
   }
   .four {
     transform: rotateX(-90deg) translateZ(30px);
-
-    span {
-      &:nth-child(1) {
-        top: 12px;
-        right: 12px;
-      }
-      &:nth-child(2) {
-        top: 12px;
-        left: 12px;
-      }
-      &:nth-child(3) {
-        bottom: 12px;
-        left: 12px;
-      }
-      &:nth-child(4) {
-        bottom: 12px;
-        right: 12px;
-      }
-    }
   }
 
   @keyframes rotate1 {

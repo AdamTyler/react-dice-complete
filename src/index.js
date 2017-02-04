@@ -23,8 +23,17 @@ class TestApp extends Component {
   }
 
   handleChange(e) {
+    let value = e.target.value
+    if (e.target.type === 'number') {
+      value = parseInt(e.target.value, 10)
+      if (value < e.target.min) {
+        value = e.target.min
+      } else if (value > e.target.max) {
+        value = e.target.max
+      }
+    }
     this.setState({
-      [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value, 10) : e.target.value
+      [e.target.name]: value
     })
   }
 
@@ -60,12 +69,12 @@ class TestApp extends Component {
           <fieldset className="form-group col">
             <label htmlFor="dieSize">Die Size (px)</label>
             <input type="number" name="dieSize" id="dieSize" className="form-control"
-              value={state.dieSize} onChange={this.handleChange} disabled/>
+              value={state.dieSize} onChange={this.handleChange} min="30" max="200"/>
           </fieldset>
           <fieldset className="form-group col">
             <label htmlFor="rollTime">Roll Time (seconds)</label>
             <input type="number" name="rollTime" id="rollTime" className="form-control"
-              value={state.rollTime} onChange={this.handleChange} />
+              value={state.rollTime} onChange={this.handleChange} min="1" max="4"/>
           </fieldset>
         </form>
         <div className="row info">
