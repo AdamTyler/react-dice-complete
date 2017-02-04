@@ -9,6 +9,7 @@ export default class DiceContainer extends Component {
       totalValue: props.numDice * 6
     }
     this.dice = []
+    this.rollCount = 0
 
     this.rollDone = this.rollDone.bind(this)
     this.rollAll = this.rollAll.bind(this)
@@ -17,15 +18,20 @@ export default class DiceContainer extends Component {
   }
 
   rollAll() {
+    this.rollCount = 0
     for (let die of this.dice) {
       if(die !== null) {
+        this.rollCount++
         die.rollDie()
       }
     }
   }
 
   rollDone() {
-    this.getDiceTotal()
+    this.rollCount--;
+    if (this.rollCount <= 0) {
+      this.getDiceTotal()
+    }
   }
 
   getDiceTotal() {
@@ -46,6 +52,7 @@ export default class DiceContainer extends Component {
   render() {
     let { props } = this
     let dice = []
+    this.dice.splice(props.numDice, 100 - props.numDice)
     for (let i = 0; i < props.numDice; i++) {
       dice.push(<Die {...props} key={i} rollDone={this.rollDone} ref={die => this.dice[i] = die} />)
     }
