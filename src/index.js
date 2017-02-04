@@ -10,14 +10,15 @@ class TestApp extends Component {
     super(props)
     this.state = {
       outline: false,
-      outlineColor: '#000',
+      outlineColor: '#000000',
       dieSize: 60,
       numDice: 4,
       sides: 6,
       rollTime: 2,
       faceColor: '#FF00AC',
       dotColor: '#5AFF44',
-      diceTotal: 0
+      diceTotal: 0,
+      rolling: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.totalDisplay = this.totalDisplay.bind(this)
@@ -43,11 +44,12 @@ class TestApp extends Component {
   }
 
   totalDisplay(value) {
-    this.setState({diceTotal: value})
+    this.setState({diceTotal: value, rolling: false})
   }
 
   rollAll() {
     this.diceContainer.rollAll()
+    this.setState({rolling: true})
   }
 
   render() {
@@ -106,7 +108,20 @@ class TestApp extends Component {
 
           <div className="col">
             <h4 className="text-primary">Dice Total:
-              <span>{this.state.diceTotal}</span>
+              <span style={{display: this.state.rolling ? 'none':'inline-block'}}>
+                {this.state.diceTotal}
+              </span>
+              <div className="sk-cube-grid" style={{display: this.state.rolling ? 'inline-block':'none'}}>
+                <div className="sk-cube sk-cube1"></div>
+                <div className="sk-cube sk-cube2"></div>
+                <div className="sk-cube sk-cube3"></div>
+                <div className="sk-cube sk-cube4"></div>
+                <div className="sk-cube sk-cube5"></div>
+                <div className="sk-cube sk-cube6"></div>
+                <div className="sk-cube sk-cube7"></div>
+                <div className="sk-cube sk-cube8"></div>
+                <div className="sk-cube sk-cube9"></div>
+              </div>
             </h4>
           </div>
         </div>

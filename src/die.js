@@ -20,10 +20,10 @@ class Die extends Component {
     this.die.classList = `die`
     void this.die.offsetWidth;
     let roll = this.getRandomInt()
-    this.setState({currentValue: roll})
     this.die.classList.add(`roll${roll}`)
     setTimeout(() => {
-      this.props.rollDone(this.state.currentValue)
+      this.setState({currentValue: roll})
+      this.props.rollDone(roll)
     }, (this.props.rollTime*1000))
   }
 

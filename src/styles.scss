@@ -1,3 +1,11 @@
+$spinkit-spinner-margin: 0 8px !default;
+$spinkit-size: 20px !default;
+$spinkit-spinner-color: #0275d8 !default;
+@import '../node_modules/spinkit/scss/spinners/9-cube-grid';
+.sk-cube-grid {
+  display: inline-block;
+}
+
 .dice-test > .row {
   margin-bottom: 20px;
 }
