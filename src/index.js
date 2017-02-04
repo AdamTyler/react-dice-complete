@@ -12,6 +12,7 @@ class TestApp extends Component {
       outline: false,
       outlineColor: '#000000',
       dieSize: 60,
+      margin: 15,
       numDice: 4,
       sides: 6,
       rollTime: 2,

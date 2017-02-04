@@ -66,8 +66,13 @@ class Die extends Component {
       height: `${this.props.dieSize}px`,
       width: `${this.props.dieSize}px`
     }
+    // container styles
+    let containerStyle = {
+      margin: `${this.props.margin}px`,
+      display: 'inline-block'
+    }
     return (
-      <div className="die-container" onClick={this.rollDie}>
+      <div className="die-container" onClick={this.rollDie} style={containerStyle}>
         <div className="die" ref={die => this.die = die} style={rollStyle}>
            <div className="face six" style={Object.assign({}, faceStyle, f6Style)}>
               <span className="dot" style={Object.assign({}, dotStyle, d1Style)}></span>
