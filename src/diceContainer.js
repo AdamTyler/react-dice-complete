@@ -47,7 +47,7 @@ export default class DiceContainer extends Component {
     let { props } = this
     let dice = []
     for (let i = 0; i < props.numDice; i++) {
-      dice.push(<Die {...props} key={i} rollDone={this.rollDone.bind(this, i)} ref={die => this.dice[i] = die} />)
+      dice.push(<Die {...props} key={i} rollDone={this.rollDone} ref={die => this.dice[i] = die} />)
     }
 
     return (

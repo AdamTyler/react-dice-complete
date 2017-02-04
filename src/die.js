@@ -17,12 +17,11 @@ class Die extends Component {
   }
 
   rollDie() {
-    this.die.classList = 'die roll'
+    this.die.classList = `die roll${Math.floor(Math.random() * 3) + 1 }`
     setTimeout(() => {
       let roll = this.getRandomInt()
       this.setState({currentValue: roll})
-      this.die.classList.remove('roll')
-      this.die.classList.add(`show-${roll}`)
+      this.die.classList = `die show-${roll}`
       this.props.rollDone(roll)
     }, (this.props.rollTime*1000))
   }
