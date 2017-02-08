@@ -1,31 +1,36 @@
-var path = require('path');
+const { resolve } = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
-  entry: './src/index.js',
+  devtool: 'inline-source-map',
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    './src/index.js'
+  ],
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: ''
+    path: resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.js', '.jsx'],
     modules: [
-      path.join(__dirname, "src"),
+      resolve(__dirname, "src"),
       "node_modules"
     ]
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
+        use: ['babel-loader'],
         exclude: /node_modules/
       },
       {
-        test: /\.scss$/,
+        test: /\.(css|scss)$/,
         use: [
           'style-loader',
           'css-loader',
@@ -35,10 +40,17 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    hot: true,
+    contentBase: resolve(__dirname, 'dist'),
+    publicPath: '/'
+  },
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
       template: './index.html'
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
   ]
 };

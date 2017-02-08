@@ -4,7 +4,7 @@
   "description": "Create dice for any game and roll for totals. Complete UI and Logic",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --open",
+    "start": "node_modules/.bin/webpack-dev-server --inline --hot --open",
     "build": "webpack --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,10 +24,11 @@
     "html-webpack-plugin": "^2.26.0",
     "node-sass": "^4.4.0",
     "postcss-loader": "^1.2.2",
+    "react-hot-loader": "^3.0.0-beta.6",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^2.2.0"
   },
   "dependencies": {
     "react": "^15.4.2",
