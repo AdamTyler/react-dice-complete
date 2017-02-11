@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import DiceContainer from './DiceContainer'
 
-import './styles.scss'
-
 class TestApp extends Component {
 
   constructor(props) {

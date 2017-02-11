@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import Die from './die'
+import Die from './Die'
+
+import './styles.scss'
 
 export default class DiceContainer extends Component {
 

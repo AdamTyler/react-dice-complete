@@ -18,6 +18,7 @@ render(TestApp);
 // Hot Module Replacement API
 if (module.hot) {
   module.hot.accept('./TestApp', () => {
-    render(TestApp)
+    const NextApp = require('./TestApp');
+    render(NextApp)
   });
 }
