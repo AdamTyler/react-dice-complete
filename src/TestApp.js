@@ -10,6 +10,7 @@ class TestApp extends Component {
       outline: false,
       outlineColor: '#000000',
       dieSize: 60,
+      disableIndividual: false,
       margin: 15,
       numDice: 4,
       sides: 6,
@@ -35,7 +36,7 @@ class TestApp extends Component {
       }
     }
     if (e.target.type === 'checkbox') {
-      value = !this.state.outline
+      value = !this.state[e.target.name]
     }
     this.setState({
       [e.target.name]: value
@@ -104,6 +105,15 @@ class TestApp extends Component {
               {'   '} or click individual dice
             </h4>
           </div>
+          <fieldset className="form-group col">
+            <div className="form-check">
+              <label className="form-check-label">
+                <input type="checkbox" className="form-check-input" name="disableIndividual" id="disableIndividual"
+                  checked={state.disableIndividual} onChange={this.handleChange} />
+                {' '} Disable individual roll on click
+              </label>
+            </div>
+          </fieldset>
 
           <div className="col">
             <h4 className="text-primary">Dice Total:
