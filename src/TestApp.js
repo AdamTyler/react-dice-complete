@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import DiceContainer from './DiceContainer'
+// import DiceContainer from './DiceContainer'
+import DiceRollr from './DiceRollr'
 
 class TestApp extends Component {
 
@@ -14,12 +15,12 @@ class TestApp extends Component {
       sides: 6,
       rollTime: 2,
       faceColor: '#FF00AC',
-      dotColor: '#5AFF44',
+      dotColor: '#1eff00',
       diceTotal: 0,
       rolling: false
     }
     this.handleChange = this.handleChange.bind(this)
-    this.totalDisplay = this.totalDisplay.bind(this)
+    this.rollDone = this.rollDone.bind(this)
     this.rollAll = this.rollAll.bind(this)
   }
 
@@ -41,12 +42,12 @@ class TestApp extends Component {
     })
   }
 
-  totalDisplay(value) {
+  rollDone(value) {
     this.setState({diceTotal: value, rolling: false})
   }
 
   rollAll() {
-    this.diceContainer.rollAll()
+    this.diceRollr.rollAll()
     this.setState({rolling: true})
   }
 
@@ -125,8 +126,8 @@ class TestApp extends Component {
         </div>
         <div className="row dice">
           <div className="col">
-            <DiceContainer {...this.state} totalDisplay={this.totalDisplay}
-              ref={c=> this.diceContainer = c} />
+            <DiceRollr {...this.state} rollDone={this.rollDone}
+              ref={c=> this.diceRollr = c} />
           </div>
         </div>
       </div>

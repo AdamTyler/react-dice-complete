@@ -15,7 +15,13 @@
   },
   "author": "Adam Tyler <lazy9669@gmail.com> (http://adam-tyler.com)",
   "keywords": [
-    "dice", "react", "roll", "animation"
+    "dice",
+    "react",
+    "javascript",
+    "es6",
+    "roll",
+    "css3",
+    "animation"
   ],
   "license": "ISC",
   "devDependencies": {

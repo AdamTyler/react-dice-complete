@@ -44,11 +44,11 @@ export default class DiceContainer extends Component {
       }
     }
     this.setState({totalValue: total})
-    this.props.totalDisplay(total)
+    this.props.totalCb(total)
   }
 
   componentDidMount() {
-    this.props.totalDisplay(this.state.totalValue)
+    this.props.totalCb(this.state.totalValue)
   }
 
   componentDidUpdate(prevProps, prevState) {
