@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-// import DiceContainer from './DiceContainer'
-import DiceRollr from './DiceRollr'
+import ReactDice from './ReactDice'
 
 class TestApp extends Component {
 
@@ -48,7 +47,7 @@ class TestApp extends Component {
   }
 
   rollAll() {
-    this.diceRollr.rollAll()
+    this.reactDice.rollAll()
     this.setState({rolling: true})
   }
 
@@ -136,8 +135,8 @@ class TestApp extends Component {
         </div>
         <div className="row dice">
           <div className="col">
-            <DiceRollr {...this.state} rollDone={this.rollDone}
-              ref={c=> this.diceRollr = c} />
+            <ReactDice {...this.state} rollDone={this.rollDone}
+              ref={c=> this.reactDice = c} />
           </div>
         </div>
       </div>

@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('./src/DiceRollr');
+module.exports = require('./src/ReactDice');

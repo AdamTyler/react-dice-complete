@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import DiceContainer from './DiceContainer'
 
-class DiceRollr extends Component {
+class ReactDice extends Component {
 
   static propTypes = {
     outline: PropTypes.bool,
@@ -53,4 +53,4 @@ class DiceRollr extends Component {
   }
 }
 
-export default DiceRollr
+export default ReactDice
