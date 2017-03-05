@@ -4,10 +4,10 @@
   "description": "Create dice for any game and roll for totals. Complete UI and Logic",
   "main": "lib/ReactDice.js",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server",
-    "build": "webpack --config webpack.config.js",
+    "start": "node_modules/.bin/webpack-dev-server --config webpack.config.dev.js",
+    "build": "webpack -p --config webpack.config.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "./node_modules/.bin/babel ./src --out-dir ./lib --source-maps"
+    "prepublish": "./node_modules/.bin/babel ./src --out-dir ./lib --source-maps --presets es2015,react,stage-2 --plugins babel-plugin-add-module-exports; node-sass --output-style comporessed -o src/styles.scss lib/styles.css"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,9 @@
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-2": "^6.22.0",
     "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^2.1.0",
     "html-webpack-plugin": "^2.26.0",
+    "isomorphic-style-loader": "^1.1.0",
     "node-sass": "^4.4.0",
     "postcss-loader": "^1.2.2",
     "react-hot-loader": "^3.0.0-beta.6",
