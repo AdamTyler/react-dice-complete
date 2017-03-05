@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Die from './Die'
-
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import './styles.scss'
 
 export default class DiceContainer extends Component {

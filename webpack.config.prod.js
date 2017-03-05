@@ -1,6 +1,6 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
-
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: './src/ReactDice.js',
@@ -34,16 +34,16 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        use: [
-          'isomorphic-style-loader',
+        use: ExtractTextPlugin.extract([
           'css-loader',
           'postcss-loader',
           'sass-loader',
-        ]
+        ])
       }
     ]
   },
   plugins: [
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    new ExtractTextPlugin('styles.css')
   ]
 };
