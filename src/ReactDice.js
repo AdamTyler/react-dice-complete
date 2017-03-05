@@ -12,6 +12,7 @@ class ReactDice extends Component {
     numDice: PropTypes.number,
     sides: PropTypes.number,
     rollTime: PropTypes.number,
+    rollDone: PropTypes.function,
     faceColor: PropTypes.string,
     dotColor: PropTypes.string,
   }
