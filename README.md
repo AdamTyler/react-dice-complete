@@ -54,12 +54,25 @@ var ReactDice = require('react-dice');
 ```
 <link rel="stylesheet" href="local/path/to/downloaded/react-dice-complete.css">
 
+<div id="app"></div>
+
+
 <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
 <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
 <script src="local/path/to/downloaded/react-dice-complete.js"></script>
-
 <script>
-  var reactDice = reactDice();
+  var rollDone = function(num) {
+    console.log('rollDone, total = ' + num);
+  }
+  var props = {
+    rollDone: rollDone,
+    faceColor: '#afa2ac'
+  }
+  var myDice = ReactDOM.render(
+    React.createElement(ReactDice.default, props),
+    document.getElementById('app')
+  );
+  myDice.rollAll();
 </script>
 
 ```
@@ -78,4 +91,4 @@ var ReactDice = require('react-dice');
 |**`disableIndividual`**|`{Bool}`|disable clicks on die to roll each individuallly |
 
 ## Provided functions
-`rollAll`: rolls all die and calls `rollDone` with total from roll
+`rollAll()`: rolls all die and calls `rollDone` with total from roll

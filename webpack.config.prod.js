@@ -44,6 +44,6 @@ module.exports = {
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
-    new ExtractTextPlugin('styles.css')
+    new ExtractTextPlugin('react-dice-complete.css')
   ]
 };
