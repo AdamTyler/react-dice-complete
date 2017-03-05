@@ -1,8 +1,8 @@
 {
-  "name": "react-dice",
+  "name": "react-dice-complete",
   "version": "1.0.0",
   "description": "Create dice for any game and roll for totals. Complete UI and Logic",
-  "main": "index.js",
+  "main": "lib/ReactDice.js",
   "scripts": {
     "start": "node_modules/.bin/webpack-dev-server",
     "build": "webpack --config webpack.config.js",
@@ -11,9 +11,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AdamTyler/react-dice.git"
+    "url": "git+https://github.com/AdamTyler/react-dice-complete.git"
   },
-  "author": "Adam Tyler <lazy9669@gmail.com> (http://adam-tyler.com)",
+  "author": "Adam Tyler <adam.tyler@utexas.edu> (http://adam-tyler.com)",
   "keywords": [
     "dice",
     "react",
