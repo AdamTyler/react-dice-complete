@@ -16,7 +16,7 @@ npm install react-dice
 ```
 import React from 'react'
 import ReactDice from 'react-dice-complete'
-import 'react-dice-complete/dist/styles.css'
+import 'react-dice-complete/dist/react-dice-complete.css'
 
 class App extends React.Component {
 
@@ -24,7 +24,7 @@ class App extends React.Component {
     return (
       <div>
         <ReactDice
-          numDice=2
+          numDice={2}
           rollDone={this.rollDoneCallback}
           ref={dice => this.reactDice = dice}
         />
