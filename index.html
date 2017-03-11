@@ -70,13 +70,21 @@
               transform: scale3D(0, 0, 1);
     }
   }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #f5f5f5;
+  }
   </style>
 </head>
 <body>
   <div class="jumbotron">
     <div class="container">
       <h1 class="display-2 text-primary">React Dice Complete 🎲</h1>
-      <p class="lead">The amazing library that gives you dice rolling animations AND functionality!</p>
+      <p class="lead">The flexible and amazing dice rolling library build with <a href="http://facebook.github.io/react/" target="_blank">ReactJS</a></p>
       <div id="github-btn">
         <a class="github-button" href="https://github.com/AdamTyler/react-dice-complete" data-style="mega" aria-label="Star AdamTyler/react-dice on GitHub">Star</a>
         <a class="github-button" href="https://github.com/AdamTyler" data-style="mega" aria-label="Follow @AdamTyler on GitHub">Follow @AdamTyler</a>
@@ -84,6 +92,11 @@
     </div>
   </div>
   <main class="container" id="app"></main>
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted">Copyright © <a href="http://adam-tyler.com" target="_blank">Adam Tyler</a> 2016. MIT Licensed.</span>
+    </div>
+  </footer>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>
