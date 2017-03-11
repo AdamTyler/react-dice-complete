@@ -1,6 +1,6 @@
 # React Dice
 
-Library for creating multisided dice and rolling them. Check out the demo [here](http://adam-tyler.com/react-dice).
+Library for creating multisided dice and rolling them. Check out the demo [here](http://adam-tyler.com/react-dice-complete).
 
 ![sample dice roll](/img/diceRoll2.gif "Sample Dice Roll")
 
