@@ -7,7 +7,8 @@
     "start": "node_modules/.bin/webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack -p --config webpack.config.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "demo": "webpack --config webpack.config.demo.js"
   },
   "repository": {
     "type": "git",
@@ -48,6 +49,5 @@
   "dependencies": {
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "spinkit": "^1.2.5"
   }
 }

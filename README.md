@@ -78,17 +78,18 @@ var ReactDice = require('react-dice');
 ```
 
 ## Available Options
-|Name|Type|Description|
-|:--:|:--:|:----------|
-|**`rollDone`**|`{String|Function}`|callback providing integer of total amount from dice roll|
-|**`numDice`**|`{Number}`|The number of dice you wish to have|
-|**`outline`**|`{Bool}`|Show a 1px outline for each face of the die|
-|**`outlineColor`**|`{String}`|hex color code for outline color if outline is `true`|
-|**`faceColor`**|`{String}`|hex color code for the face of the die|
-|**`dotColor`**|`{String}`|hex color code for the dots on the die|
-|**`dieSize`**|`{Number}`|px width/height of each dice face|
-|**`rollTime`**|`{Number}`|time in seconds for the roll animation|
-|**`disableIndividual`**|`{Bool}`|disable clicks on die to roll each individuallly |
+|Name|Type|Default|Description|
+|:--:|:--:|:--:|:----------|
+|**`rollDone`**|`{String|Function}`|`null`|callback providing integer of total amount from dice roll|
+|**`numDice`**|`{Number}`|`4`|The number of dice you wish to have|
+|**`outline`**|`{Bool}`|`false`|Show a 1px outline for each face of the die|
+|**`outlineColor`**|`{String}`|`#000000`|hex color code for outline color if outline is `true`|
+|**`margin`**|`{Number}`|`15`|margin between each die|
+|**`faceColor`**|`{String}`|`#ff00ac`|hex color code for the face of the die|
+|**`dotColor`**|`{String}`|`#1eff00`|hex color code for the dots on the die|
+|**`dieSize`**|`{Number}`|`60`|px width/height of each dice face|
+|**`rollTime`**|`{Number}`|`2`|time in seconds for the roll animation|
+|**`disableIndividual`**|`{Bool}`|`false`|disable clicks on die to roll each individually |
 
 ## Provided functions
 `rollAll()`: rolls all die and calls `rollDone` with total from roll

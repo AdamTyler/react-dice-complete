@@ -78,6 +78,11 @@ class TestApp extends Component {
               value={state.dieSize} onChange={this.handleChange} min="30" max="200"/>
           </fieldset>
           <fieldset className="form-group col">
+            <label htmlFor="dieSize">Margin Between (px)</label>
+            <input type="number" name="margin" id="margin" className="form-control"
+              value={state.margin} onChange={this.handleChange} min="0" max="200"/>
+          </fieldset>
+          <fieldset className="form-group col">
             <label htmlFor="rollTime">Roll Time (seconds)</label>
             <input type="number" name="rollTime" id="rollTime" className="form-control"
               value={state.rollTime} onChange={this.handleChange} min="1" max="4"/>

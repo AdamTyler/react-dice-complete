@@ -1,3 +1,8 @@
-'use strict';
+import TestApp from './src/TestApp'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-module.exports = require('./lib/ReactDice');
+ReactDOM.render(
+  <TestApp />,
+  document.getElementById('app')
+)
