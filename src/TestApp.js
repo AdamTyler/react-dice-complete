@@ -61,12 +61,17 @@ class TestApp extends Component {
   }
 
   componentDidMount() {
-    this.showHideControls()
-    window.addEventListener('resize', this.showHideControls)
+    // this.showHideControls()
+    // window.addEventListener('resize', this.showHideControls)
+    if (window.innerWidth < 576) {
+      document.getElementById('collapseForm').classList.remove('show')
+    } else {
+      document.getElementById('collapseForm').classList.add('show')
+    }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.showHideControls)
+    // window.removeEventListener('resize', this.showHideControls)
   }
 
   render() {
