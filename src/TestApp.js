@@ -22,6 +22,7 @@ class TestApp extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.rollDone = this.rollDone.bind(this)
     this.rollAll = this.rollAll.bind(this)
+    this.showHideControls = this.showHideControls.bind(this)
   }
 
   handleChange(e) {
@@ -51,66 +52,88 @@ class TestApp extends Component {
     this.setState({rolling: true})
   }
 
+  showHideControls() {
+    if (window.innerWidth < 576) {
+      document.getElementById('collapseForm').classList.remove('show')
+    } else {
+      document.getElementById('collapseForm').classList.add('show')
+    }
+  }
+
+  componentDidMount() {
+    this.showHideControls()
+    window.addEventListener('resize', this.showHideControls)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.showHideControls)
+  }
+
   render() {
     let { state } = this
     let colorStyle = {height: '2.375rem'}
     return (
       <div className="dice-test">
-        <form className="row controls align-items-end">
-          <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
-            <label htmlFor="numDice">Dice</label>
-            <input type="number" name="numDice" id="numDice" className="form-control"
-              value={state.numDice} onChange={this.handleChange} min="1" max="100"/>
-          </fieldset>
-          <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
-            <label htmlFor="faceColor">Face Color</label>
-            <input type="color" name="faceColor" id="faceColor" className="form-control" style={colorStyle}
-              value={state.faceColor} onChange={this.handleChange} />
-          </fieldset>
-          <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
-            <label htmlFor="dotColor">Dot Color</label>
-            <input type="color" name="dotColor" id="dotColor" className="form-control" style={colorStyle}
-              value={state.dotColor} onChange={this.handleChange} />
-          </fieldset>
-          <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
-            <label htmlFor="dieSize">Die Size (px)</label>
-            <input type="number" name="dieSize" id="dieSize" className="form-control"
-              value={state.dieSize} onChange={this.handleChange} min="30" max="200"/>
-          </fieldset>
-          <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
-            <label htmlFor="dieSize">Margin Between (px)</label>
-            <input type="number" name="margin" id="margin" className="form-control"
-              value={state.margin} onChange={this.handleChange} min="0" max="200"/>
-          </fieldset>
-          <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
-            <label htmlFor="rollTime">Roll Time (seconds)</label>
-            <input type="number" name="rollTime" id="rollTime" className="form-control"
-              value={state.rollTime} onChange={this.handleChange} min="1" max="4"/>
-          </fieldset>
-          <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
-            <div className="form-check">
-              <label className="form-check-label">
-                <input type="checkbox" className="form-check-input" name="outline" id="outline"
-                  checked={state.outline}  onChange={this.handleChange} />
-                {'  '}Outline
-              </label>
-            </div>
-            <div>
-              <input type="color" name="outlineColor" id="outlineColor" className="form-control" style={colorStyle}
-                value={state.outlineColor} onChange={this.handleChange}
-                disabled={!this.state.outline}/>
-            </div>
-          </fieldset>
-          <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
-            <div className="form-check">
-              <label className="form-check-label">
-                <input type="checkbox" className="form-check-input" name="disableIndividual" id="disableIndividual"
-                  checked={state.disableIndividual} onChange={this.handleChange} />
-                {' '} Disable individual roll on click
-              </label>
-            </div>
-          </fieldset>
-        </form>
+        <a className="row card card-header collapse-title hidden-sm-up" data-toggle="collapse" href="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
+          Show Config Options &#9660;
+        </a>
+        <div className="collapse" id="collapseForm">
+            <form className="row controls align-items-end">
+            <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
+              <label htmlFor="numDice">Dice</label>
+              <input type="number" name="numDice" id="numDice" className="form-control"
+                value={state.numDice} onChange={this.handleChange} min="1" max="100"/>
+            </fieldset>
+            <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
+              <label htmlFor="faceColor">Face Color</label>
+              <input type="color" name="faceColor" id="faceColor" className="form-control" style={colorStyle}
+                value={state.faceColor} onChange={this.handleChange} />
+            </fieldset>
+            <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
+              <label htmlFor="dotColor">Dot Color</label>
+              <input type="color" name="dotColor" id="dotColor" className="form-control" style={colorStyle}
+                value={state.dotColor} onChange={this.handleChange} />
+            </fieldset>
+            <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
+              <label htmlFor="dieSize">Die Size (px)</label>
+              <input type="number" name="dieSize" id="dieSize" className="form-control"
+                value={state.dieSize} onChange={this.handleChange} min="30" max="200"/>
+            </fieldset>
+            <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
+              <label htmlFor="dieSize">Margin Between (px)</label>
+              <input type="number" name="margin" id="margin" className="form-control"
+                value={state.margin} onChange={this.handleChange} min="0" max="200"/>
+            </fieldset>
+            <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
+              <label htmlFor="rollTime">Roll Time (seconds)</label>
+              <input type="number" name="rollTime" id="rollTime" className="form-control"
+                value={state.rollTime} onChange={this.handleChange} min="1" max="4"/>
+            </fieldset>
+            <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
+              <div className="form-check">
+                <label className="form-check-label">
+                  <input type="checkbox" className="form-check-input" name="outline" id="outline"
+                    checked={state.outline}  onChange={this.handleChange} />
+                  {'  '}Outline
+                </label>
+              </div>
+              <div>
+                <input type="color" name="outlineColor" id="outlineColor" className="form-control" style={colorStyle}
+                  value={state.outlineColor} onChange={this.handleChange}
+                  disabled={!this.state.outline}/>
+              </div>
+            </fieldset>
+            <fieldset className="form-group col-xs-6 col-sm-4 col-md-3">
+              <div className="form-check">
+                <label className="form-check-label">
+                  <input type="checkbox" className="form-check-input" name="disableIndividual" id="disableIndividual"
+                    checked={state.disableIndividual} onChange={this.handleChange} />
+                  {' '} Disable individual roll on click
+                </label>
+              </div>
+            </fieldset>
+          </form>
+        </div>
         <div className="row info">
           <div className="col">
             <h4>
