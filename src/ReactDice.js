@@ -32,12 +32,12 @@ class ReactDice extends Component {
 
   constructor(props) {
     super(props)
-    this.totalCb = this.totalCb.bind(this)
+    this.resultsCb = this.resultsCb.bind(this)
     this.rollAll = this.rollAll.bind(this)
   }
 
-  totalCb(value) {
-    this.props.rollDone(value)
+  resultsCb(total, diceValues) {
+    this.props.rollDone(total, diceValues);
   }
 
   rollAll() {
@@ -47,7 +47,7 @@ class ReactDice extends Component {
   render() {
     return (
       <div>
-        <DiceContainer {...this.props} totalCb={this.totalCb}
+        <DiceContainer {...this.props} resultsCb={this.resultsCb}
           ref={c=> this.diceContainer = c} />
       </div>
     )

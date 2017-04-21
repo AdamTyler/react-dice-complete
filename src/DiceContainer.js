@@ -7,15 +7,20 @@ export default class DiceContainer extends Component {
 
   constructor(props) {
     super(props)
+    let diceValues = [];
+    for (let i = 0; i < props.numDice; i++) {
+      diceValues[i] = 6;
+    }
     this.state = {
-      totalValue: props.numDice * 6
+      totalValue: props.numDice * 6,
+      diceValues
     }
     this.dice = []
     this.rollCount = 0
 
     this.rollDone = this.rollDone.bind(this)
     this.rollAll = this.rollAll.bind(this)
-    this.getDiceTotal = this.getDiceTotal.bind(this)
+    this.getRollResults = this.getRollResults.bind(this)
 
   }
 
@@ -32,28 +37,31 @@ export default class DiceContainer extends Component {
   rollDone() {
     this.rollCount--;
     if (this.rollCount <= 0) {
-      this.getDiceTotal()
+      this.getRollResults()
     }
   }
 
-  getDiceTotal() {
-    let total = 0
+  getRollResults() {
+    let totalValue = 0
+    let diceValues = []
     for (let die of this.dice) {
       if(die !== null) {
-        total += die.getValue()
+        let value = die.getValue()
+        diceValues.push(value)
+        totalValue += value
       }
     }
-    this.setState({totalValue: total})
-    this.props.totalCb(total)
+    this.setState({totalValue, diceValues})
+    this.props.resultsCb(totalValue, diceValues)
   }
 
-  componentDidMount() {
-    this.props.totalCb(this.state.totalValue)
+   componentDidMount() {
+    this.props.resultsCb(this.state.totalValue, this.state.diceValues)
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.numDice !== this.props.numDice) {
-      this.getDiceTotal()
+      this.getRollResults()
     }
   }
 
