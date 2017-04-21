@@ -121,7 +121,7 @@ class TestApp extends Component {
 
           <div className="col">
             <h4 className="text-primary">Dice Total:
-              <span style={{display: this.state.rolling ? 'none':'inline-block'}}>
+              <span style={{display: this.state.rolling ? 'none':'inline-block', paddingLeft: '5px'}}>
                 {this.state.diceTotal}
               </span>
               <div className="sk-cube-grid" style={{display: this.state.rolling ? 'inline-block':'none'}}>
