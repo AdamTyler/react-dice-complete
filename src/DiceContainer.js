@@ -47,10 +47,6 @@ export default class DiceContainer extends Component {
     this.props.totalCb(total)
   }
 
-  componentDidMount() {
-    this.props.totalCb(this.state.totalValue)
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.numDice !== this.props.numDice) {
       this.getDiceTotal()
