@@ -13,7 +13,7 @@ npm install react-dice
 * [React](https://facebook.github.io/react/)
 
 ## Usage (ES6)
-```
+```javascript
 import React from 'react'
 import ReactDice from 'react-dice-complete'
 import 'react-dice-complete/dist/react-dice-complete.css'
@@ -43,7 +43,7 @@ class App extends React.Component {
 ```
 
 ## Usage ES5 (with bundling)
-```
+```javascript
 var React = require('react');
 var ReactDice = require('react-dice');
 
@@ -51,7 +51,7 @@ var ReactDice = require('react-dice');
 ```
 
 ## Usage ES5 (no bundling)
-```
+```html
 <link rel="stylesheet" href="local/path/to/downloaded/react-dice-complete.css">
 
 <div id="app"></div>
