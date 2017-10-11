@@ -80,7 +80,7 @@ var ReactDice = require('react-dice');
 ## Available Options
 |Name|Type|Default|Description|
 |:--:|:--:|:--:|:----------|
-|**`rollDone`**|`{String|Function}`|`null`|callback providing integer of total amount from dice roll|
+|**`rollDone`**|`{String/Function}`|`null`|callback providing integer of total amount from dice roll|
 |**`numDice`**|`{Number}`|`4`|The number of dice you wish to have|
 |**`outline`**|`{Bool}`|`false`|Show a 1px outline for each face of the die|
 |**`outlineColor`**|`{String}`|`#000000`|hex color code for outline color if outline is `true`|
