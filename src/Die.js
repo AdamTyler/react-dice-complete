@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import {PropTypes} from 'prop-types'
 
 class Die extends Component {
 
@@ -17,7 +18,7 @@ class Die extends Component {
   }
 
   rollDie() {
-    this.die.classList = `die`
+    this.die.className = `die`
     void this.die.offsetWidth;
     let roll = this.getRandomInt()
     this.die.classList.add(`roll${roll}`)
