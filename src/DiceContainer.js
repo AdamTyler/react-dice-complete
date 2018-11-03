@@ -19,12 +19,14 @@ export default class DiceContainer extends Component {
 
   }
 
-  rollAll() {
+  rollAll(values) {
     this.rollCount = 0
+    let index = 0
     for (let die of this.dice) {
       if(die !== null) {
         this.rollCount++
-        die.rollDie()
+        die.rollDie(values[index])
+        index++
       }
     }
   }
