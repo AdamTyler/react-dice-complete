@@ -6,7 +6,7 @@ Library for creating multisided dice and rolling them. Check out the demo [here]
 
 ## Installation
 ```
-npm install react-dice
+npm install react-dice-complete
 ```
 
 ## Dependencies
