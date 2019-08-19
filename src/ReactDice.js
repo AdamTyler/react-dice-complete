@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import {PropTypes} from 'prop-types'
+import { PropTypes } from 'prop-types'
 import DiceContainer from './DiceContainer'
 
 class ReactDice extends Component {
-
   static propTypes = {
     outline: PropTypes.bool,
     outlineColor: PropTypes.string,
@@ -28,7 +27,7 @@ class ReactDice extends Component {
     sides: 6,
     rollTime: 2,
     faceColor: '#FF00AC',
-    dotColor: '#1dff00'
+    dotColor: '#1dff00',
   }
 
   constructor(props) {
@@ -48,8 +47,11 @@ class ReactDice extends Component {
   render() {
     return (
       <div>
-        <DiceContainer {...this.props} totalCb={this.totalCb}
-          ref={c=> this.diceContainer = c} />
+        <DiceContainer
+          {...this.props}
+          totalCb={this.totalCb}
+          ref={c => (this.diceContainer = c)}
+        />
       </div>
     )
   }

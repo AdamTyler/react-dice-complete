@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import Die from './Die'
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import './styles.scss'
 
 export default class DiceContainer extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
-      totalValue: props.numDice * 6
+      totalValue: props.numDice * 6,
     }
     this.dice = []
     this.rollCount = 0
@@ -16,13 +15,12 @@ export default class DiceContainer extends Component {
     this.rollDone = this.rollDone.bind(this)
     this.rollAll = this.rollAll.bind(this)
     this.getDiceTotal = this.getDiceTotal.bind(this)
-
   }
 
   rollAll() {
     this.rollCount = 0
     for (let die of this.dice) {
-      if(die !== null) {
+      if (die !== null) {
         this.rollCount++
         die.rollDie()
       }
@@ -30,7 +28,7 @@ export default class DiceContainer extends Component {
   }
 
   rollDone() {
-    this.rollCount--;
+    this.rollCount--
     if (this.rollCount <= 0) {
       this.getDiceTotal()
     }
@@ -39,11 +37,11 @@ export default class DiceContainer extends Component {
   getDiceTotal() {
     let total = 0
     for (let die of this.dice) {
-      if(die !== null) {
+      if (die !== null) {
         total += die.getValue()
       }
     }
-    this.setState({totalValue: total})
+    this.setState({ totalValue: total })
     this.props.totalCb(total)
   }
 
@@ -58,13 +56,16 @@ export default class DiceContainer extends Component {
     let dice = []
     this.dice.splice(props.numDice, 100 - props.numDice)
     for (let i = 0; i < props.numDice; i++) {
-      dice.push(<Die {...props} key={i} rollDone={this.rollDone} ref={die => this.dice[i] = die} />)
+      dice.push(
+        <Die
+          {...props}
+          key={i}
+          rollDone={this.rollDone}
+          ref={die => (this.dice[i] = die)}
+        />
+      )
     }
 
-    return (
-      <div className="dice">
-        {dice}
-      </div>
-    )
+    return <div className='dice'>{dice}</div>
   }
 }
