@@ -4,11 +4,11 @@
   "description": "Create dice for any game and roll for totals. Complete UI and Logic",
   "main": "dist/react-dice-complete.js",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --config webpack.config.dev.js",
-    "build": "webpack -p --config webpack.config.prod.js",
+    "start": "node_modules/.bin/webpack-dev-server --config config/webpack.config.dev.js",
+    "build": "webpack -p --config config/webpack.config.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "npm run build",
-    "demo": "webpack --config webpack.config.demo.js"
+    "demo": "webpack --config config/webpack.config.demo.js"
   },
   "repository": {
     "type": "git",

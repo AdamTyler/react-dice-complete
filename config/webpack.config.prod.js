@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/ReactDice.js',
   output: {
     filename: 'react-dice-complete.js',
-    path: resolve(__dirname, './dist'),
+    path: resolve(__dirname, '../dist'),
     library: 'ReactDice',
     libraryTarget: 'umd',
   },
