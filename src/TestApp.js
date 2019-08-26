@@ -15,7 +15,7 @@ class TestApp extends Component {
       rollTime: 2,
       faceColor: '#FF00AC',
       dotColor: '#1eff00',
-      diceTotal: 0,
+      diceTotal: '...',
       rolling: false,
     }
     this.handleChange = this.handleChange.bind(this)
@@ -42,7 +42,7 @@ class TestApp extends Component {
     })
   }
 
-  rollDone(value) {
+  rollDone(value, values) {
     this.setState({ diceTotal: value, rolling: false })
   }
 

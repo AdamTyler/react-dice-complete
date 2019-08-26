@@ -36,8 +36,8 @@ class ReactDice extends Component {
     this.rollAll = this.rollAll.bind(this)
   }
 
-  totalCb(value) {
-    this.props.rollDone(value)
+  totalCb(total, diceValues) {
+    this.props.rollDone(total, diceValues)
   }
 
   rollAll(values = []) {
