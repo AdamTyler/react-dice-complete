@@ -62,4 +62,4 @@ class App extends React.Component {
 
 ## Provided functions
 
-`rollAll()`: rolls all die and calls `rollDone` with total from roll
+`rollAll([values])`: rolls all die and calls `rollDone` with total from roll. You can preset the `values` you would like the outcome to be by passing array of numbers, if not result will be random.

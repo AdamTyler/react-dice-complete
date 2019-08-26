@@ -40,8 +40,8 @@ class ReactDice extends Component {
     this.props.rollDone(value)
   }
 
-  rollAll() {
-    this.diceContainer.rollAll()
+  rollAll(values = []) {
+    this.diceContainer.rollAll(values)
   }
 
   render() {

@@ -16,10 +16,10 @@ class Die extends Component {
     return Math.floor(Math.random() * max) + min
   }
 
-  rollDie() {
+  rollDie(value) {
     this.die.className = `die`
     void this.die.offsetWidth
-    let roll = this.getRandomInt()
+    let roll = value || this.getRandomInt()
     this.die.classList.add(`roll${roll}`)
     setTimeout(() => {
       this.setState({ currentValue: roll })
@@ -109,7 +109,7 @@ class Die extends Component {
     return (
       <div
         className='die-container'
-        onClick={this.props.disableIndividual ? null : this.rollDie}
+        onClick={this.props.disableIndividual ? null : () => this.rollDie()}
         style={containerStyle}
       >
         <div className='die' ref={die => (this.die = die)} style={rollStyle}>
