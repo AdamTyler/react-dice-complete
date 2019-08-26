@@ -1,6 +1,6 @@
 {
   "name": "react-dice-complete",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Create dice for any game and roll for totals. Complete UI and Logic",
   "main": "dist/react-dice-complete.js",
   "scripts": {
