@@ -8,7 +8,7 @@
     "build": "webpack -p --config config/webpack.config.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "npm run build",
-    "demo": "webpack --config config/webpack.config.demo.js"
+    "docs": "webpack --config config/webpack.config.docs.js"
   },
   "repository": {
     "type": "git",

@@ -9,5 +9,4 @@ node_modules
 npm-debug.log
 
 # build
-demo
 dist
