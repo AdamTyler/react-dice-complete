@@ -43,6 +43,7 @@ class TestApp extends Component {
   }
 
   rollDone(value, values) {
+    // console.log('done', value, values)
     this.setState({ diceTotal: value, rolling: false })
   }
 
