@@ -45,42 +45,6 @@ class App extends React.Component {
 )
 ```
 
-## Usage ES5 (with bundling)
-
-```javascript
-var React = require('react')
-var ReactDice = require('react-dice')
-```
-
-## Usage ES5 (no bundling)
-
-```html
-<link
-  rel="stylesheet"
-  href="local/path/to/downloaded/react-dice-complete.css"
-/>
-
-<div id="app"></div>
-
-<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
-<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
-<script src="local/path/to/downloaded/react-dice-complete.js"></script>
-<script>
-  var rollDone = function(num) {
-    console.log('rollDone, total = ' + num)
-  }
-  var props = {
-    rollDone: rollDone,
-    faceColor: '#afa2ac'
-  }
-  var myDice = ReactDOM.render(
-    React.createElement(ReactDice.default, props),
-    document.getElementById('app')
-  )
-  myDice.rollAll()
-</script>
-```
-
 ## Available Options
 
 |          Name           |        Type         |  Default  | Description                                               |
