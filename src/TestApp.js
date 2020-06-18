@@ -7,6 +7,7 @@ class TestApp extends Component {
     this.state = {
       outline: false,
       outlineColor: '#000000',
+      defaultRoll: 1,
       dieSize: 60,
       disableIndividual: false,
       margin: 15,
@@ -255,7 +256,7 @@ class TestApp extends Component {
             <ReactDice
               {...this.state}
               rollDone={this.rollDone}
-              ref={c => (this.reactDice = c)}
+              ref={(c) => (this.reactDice = c)}
             />
           </div>
         </div>

@@ -21,7 +21,7 @@ export default class DiceContainer extends Component {
     this.getRollResults = this.getRollResults.bind(this)
   }
 
-  rollAll(values) {
+  rollAll(values = []) {
     this.rollCount = 0
     let index = 0
     for (let die of this.dice) {
@@ -70,7 +70,7 @@ export default class DiceContainer extends Component {
           {...props}
           key={i}
           rollDone={this.rollDone}
-          ref={die => (this.dice[i] = die)}
+          ref={(die) => (this.dice[i] = die)}
         />
       )
     }
