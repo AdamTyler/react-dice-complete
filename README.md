@@ -51,6 +51,7 @@ class App extends React.Component {
 | :---------------------: | :-----------------: | :-------: | :-------------------------------------------------------- |
 |     **`rollDone`**      | `{String/Function}` |  `null`   | callback returns total & individual values from dice roll |
 |      **`numDice`**      |     `{Number}`      |    `4`    | The number of dice you wish to have                       |
+|    **`defaultRoll`**    |     `{Number}`      |    `6`    | The number you want displayed before a roll               |
 |      **`outline`**      |      `{Bool}`       |  `false`  | Show a 1px outline for each face of the die               |
 |   **`outlineColor`**    |     `{String}`      | `#000000` | hex color code for outline color if outline is `true`     |
 |      **`margin`**       |     `{Number}`      |   `15`    | margin between each die                                   |
