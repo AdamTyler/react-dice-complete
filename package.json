@@ -7,7 +7,7 @@
     "start": "node_modules/.bin/webpack-dev-server --config config/webpack.config.dev.js",
     "build": "webpack -p --config config/webpack.config.prod.js",
     "test": "echo \"No test specified\" && exit 0",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "docs": "webpack --config config/webpack.config.docs.js"
   },
   "repository": {

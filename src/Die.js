@@ -5,7 +5,7 @@ class Die extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentValue: 6,
+      currentValue: props.defaultRoll || 6,
     }
     this.rollDie = this.rollDie.bind(this)
   }
@@ -112,7 +112,11 @@ class Die extends Component {
         onClick={this.props.disableIndividual ? null : () => this.rollDie()}
         style={containerStyle}
       >
-        <div className='die' ref={die => (this.die = die)} style={rollStyle}>
+        <div
+          className={`die roll${this.getValue()}`}
+          ref={(die) => (this.die = die)}
+          style={rollStyle}
+        >
           <div
             className='face six'
             style={Object.assign({}, faceStyle, f6Style)}
