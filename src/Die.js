@@ -17,7 +17,12 @@ class Die extends Component {
   }
 
   rollDie(value, auto) {
-    if (this.props.disableRandom && !value && !auto) return;
+    if (this.props.disableRandom && !value && !auto) {
+      setTimeout(() => {
+        this.props.rollDone(this.state.currentValue);
+      }, this.props.rollTime * 1000);
+      return;
+    }
     this.die.className = `die`
     void this.die.offsetWidth
     let roll = value || this.getRandomInt()
