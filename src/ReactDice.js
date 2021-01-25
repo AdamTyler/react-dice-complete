@@ -23,7 +23,8 @@ ReactDice.propTypes = {
   rollDone: PropTypes.func,
   rollTime: PropTypes.number,
   sides: PropTypes.number,
-}
+  dieCornerRadius:PropTypes.Number
+};
 
 ReactDice.defaultProps = {
   defaultRoll: 4,
@@ -38,6 +39,7 @@ ReactDice.defaultProps = {
   rollDone: () => null,
   rollTime: 2,
   sides: 6,
-}
+  dieCornerRadius: 0
+};
 
 export default ReactDice

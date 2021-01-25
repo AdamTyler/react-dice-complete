@@ -257,6 +257,7 @@ class TestApp extends Component {
               {...this.state}
               rollDone={this.rollDone}
               ref={(c) => (this.reactDice = c)}
+              dieCornerRadius={25}
             />
           </div>
         </div>

@@ -63,7 +63,7 @@ export default class DiceContainer extends Component {
   render() {
     let { props } = this
     let dice = []
-    this.dice.splice(props.numDice, 100 - props.numDice)
+    this.dice.splice(props.numDice, 100 - props.numDice);
     for (let i = 0; i < props.numDice; i++) {
       dice.push(
         <Die

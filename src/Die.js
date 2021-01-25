@@ -35,12 +35,14 @@ class Die extends Component {
     // face styles
     let faceStyle = {
       background: this.props.faceColor,
-      outline: this.props.outline
-        ? `1px solid ${this.props.outlineColor}`
-        : 'none',
       height: `${this.props.dieSize}px`,
       position: 'absolute',
       width: `${this.props.dieSize}px`,
+      borderRadius: `${this.props.dieCornerRadius}%`
+    };
+    if(this.props.outline)
+    {
+      faceStyle = {...faceStyle, boxShadow: `0 0 0 1pt ${this.props.outlineColor}`}
     }
     let f1Style = {
       transform: `rotateX(180deg) translateZ(${this.props.dieSize / 2}px)`,
