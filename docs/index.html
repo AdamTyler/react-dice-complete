@@ -122,14 +122,14 @@
         }
       }
     </style>
-  </head>
+  <script defer src="./bundle.js"></script></head>
   <body>
     <div class="jumbotron">
       <div class="container">
         <h1 class="display-2 text-primary">React Dice Complete 🎲</h1>
         <p class="lead">
           The flexible and amazing dice rolling library build with
-          <a href="http://facebook.github.io/react/" target="_blank">ReactJS</a>
+          <a href="http://facebook.github.io/react/" target="_blank">React</a>
         </p>
       </div>
     </div>
@@ -157,8 +157,11 @@
       <div class="container">
         <span class="text-muted"
           >Copyright ©
-          <a href="http://adam-tyler.com" target="_blank">Adam Tyler</a> 2019.
-          MIT Licensed.</span
+          <a href="http://adam-tyler.com" target="_blank">Adam Tyler</a>
+          <script>
+            document.write(new Date().getFullYear())
+          </script>
+          . ISC Licensed.</span
         >
       </div>
     </footer>
@@ -178,5 +181,5 @@
       integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
       crossorigin="anonymous"
     ></script>
-  <script type="text/javascript" src="./bundle.js"></script></body>
+  </body>
 </html>

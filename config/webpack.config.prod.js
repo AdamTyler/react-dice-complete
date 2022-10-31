@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
+  mode: 'production',
   entry: './src/ReactDice.js',
   output: {
     filename: 'react-dice-complete.js',
@@ -40,10 +41,12 @@ module.exports = {
       },
     ],
   },
+  optimization: {
+    moduleIds: 'named',
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'react-dice-complete.css',
     }),
-    new webpack.NamedModulesPlugin(),
   ],
 }

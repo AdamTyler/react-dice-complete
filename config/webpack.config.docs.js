@@ -3,6 +3,7 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
+  mode: 'none',
   devtool: 'inline-source-map',
   entry: ['./index.js'],
   output: {
@@ -27,11 +28,13 @@ module.exports = {
       },
     ],
   },
+  optimization: {
+    moduleIds: 'named',
+  },
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
       template: './index.html',
     }),
-    new webpack.NamedModulesPlugin(),
   ],
 }

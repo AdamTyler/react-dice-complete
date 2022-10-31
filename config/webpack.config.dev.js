@@ -3,6 +3,7 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
+  mode: 'development',
   devtool: 'inline-source-map',
   entry: [
     'react-hot-loader/patch',
@@ -32,11 +33,14 @@ module.exports = {
       },
     ],
   },
-  devServer: {
-    hot: true,
-    contentBase: resolve(__dirname, 'dist'),
-    publicPath: '/',
-    port: 8080,
+  // devServer: {
+  //   hot: true,
+  //   contentBase: resolve(__dirname, 'dist'),
+  //   publicPath: '/',
+  //   port: 8080,
+  // },
+  optimization: {
+    moduleIds: 'named',
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -44,6 +48,5 @@ module.exports = {
       template: './index.html',
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
   ],
 }
