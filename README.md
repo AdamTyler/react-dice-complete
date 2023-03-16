@@ -42,7 +42,7 @@ class App extends React.Component {
   rollDoneCallback(num) {
     console.log(`You rolled a ${num}`)
   }
-)
+}
 ```
 
 ## Available Options
