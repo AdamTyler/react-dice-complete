@@ -2,9 +2,9 @@ const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  mode: 'none',
+  mode: 'production',
   devtool: 'inline-source-map',
-  entry: ['./index.js'],
+  entry: './index.js',
   output: {
     filename: 'bundle.js',
     path: resolve(__dirname, '../docs'),
@@ -21,7 +21,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
         exclude: /node_modules/,
