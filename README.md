@@ -14,34 +14,38 @@ npm install react-dice-complete
 
 - [React](https://facebook.github.io/react/)
 
-## Usage (ES6)
+## Example Usage (ES6)
 
 ```javascript
-import React from 'react'
+import React, { useRef } from 'react'
 import ReactDice from 'react-dice-complete'
 import 'react-dice-complete/dist/react-dice-complete.css'
 
-class App extends React.Component {
+const MyDiceApp = () => {
+
+  const reactDice = useRef()
+
+  const rollDone = (totalValue, values) => {
+    console.log('individual die values array:', values)
+    console.log('total dice value:', totalValue)
+  }
+
+  const rollAll = () => {
+    reactDice.current.rollAll()
+  }
 
   render() {
     return (
       <div>
         <ReactDice
           numDice={2}
-          rollDone={this.rollDoneCallback}
-          ref={dice => this.reactDice = dice}
+          rollDone={rollDone}
+          ref={reactDice}
         />
       </div>
     )
   }
 
-  rollAll() {
-    this.reactDice.rollAll()
-  }
-
-  rollDoneCallback(num) {
-    console.log(`You rolled a ${num}`)
-  }
 }
 ```
 
@@ -49,17 +53,19 @@ class App extends React.Component {
 
 |          Name           |        Type         |  Default  | Description                                               |
 | :---------------------: | :-----------------: | :-------: | :-------------------------------------------------------- |
-|     **`rollDone`**      | `{String/Function}` |  `null`   | callback returns total & individual values from dice roll |
-|      **`numDice`**      |     `{Number}`      |    `4`    | The number of dice you wish to have                       |
 |    **`defaultRoll`**    |     `{Number}`      |    `6`    | The number you want displayed before a roll               |
+|  **`dieCornerRadius`**  |     `{Number}`      |    `5`    | Rounded radius to use for each die                        |
+|      **`dieSize`**      |     `{Number}`      |   `60`    | px width/height of each dice face                         |
+| **`disableIndividual`** |      `{Bool}`       |  `false`  | disable clicks on die to roll each individually           |
+|  **`disabbleRandom`**   |      `{Bool}`       |  `false`  | disable random die chance and reuses current value        |
+|     **`dotColor`**      |     `{String}`      | `#1eff00` | hex color code for the dots on the die                    |
+|     **`faceColor`**     |     `{String}`      | `#ff00ac` | hex color code for the face of the die                    |
+|      **`margin`**       |     `{Number}`      |   `15`    | margin between each die                                   |
+|      **`numDice`**      |     `{Number}`      |    `4`    | The number of dice you wish to have                       |
 |      **`outline`**      |      `{Bool}`       |  `false`  | Show a 1px outline for each face of the die               |
 |   **`outlineColor`**    |     `{String}`      | `#000000` | hex color code for outline color if outline is `true`     |
-|      **`margin`**       |     `{Number}`      |   `15`    | margin between each die                                   |
-|     **`faceColor`**     |     `{String}`      | `#ff00ac` | hex color code for the face of the die                    |
-|     **`dotColor`**      |     `{String}`      | `#1eff00` | hex color code for the dots on the die                    |
-|      **`dieSize`**      |     `{Number}`      |   `60`    | px width/height of each dice face                         |
+|     **`rollDone`**      | `{String/Function}` |  `null`   | callback returns total & individual values from dice roll |
 |     **`rollTime`**      |     `{Number}`      |    `2`    | time in seconds for the roll animation                    |
-| **`disableIndividual`** |      `{Bool}`       |  `false`  | disable clicks on die to roll each individually           |
 
 ## Provided functions
 
