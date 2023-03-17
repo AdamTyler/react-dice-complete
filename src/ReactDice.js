@@ -1,17 +1,22 @@
-import React from 'react'
+// This file used for production
+import React, { forwardRef, useCallback } from 'react'
 import { PropTypes } from 'prop-types'
 import DiceContainer from './DiceContainer'
 
-const ReactDice = React.forwardRef((props, ref) => {
-  const totalCb = (total, diceValues) => {
-    props.rollDone(total, diceValues)
-  }
+const ReactDice = forwardRef((props, ref) => {
+  const totalCb = useCallback(
+    (total, diceValues) => {
+      props.rollDone(total, diceValues)
+    },
+    [props.rollDone]
+  )
 
   return <DiceContainer {...props} totalCb={totalCb} ref={ref} />
 })
 
 ReactDice.propTypes = {
   defaultRoll: PropTypes.number,
+  dieCornerRadius: PropTypes.number,
   dieSize: PropTypes.number,
   disableIndividual: PropTypes.bool,
   disableRandom: PropTypes.bool,
@@ -28,6 +33,7 @@ ReactDice.propTypes = {
 
 ReactDice.defaultProps = {
   defaultRoll: 4,
+  dieCornerRadius: 5,
   dieSize: 60,
   disableIndividual: false,
   disableRandom: false,

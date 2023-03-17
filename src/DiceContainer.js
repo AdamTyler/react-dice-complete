@@ -1,80 +1,76 @@
-import React, { Component } from 'react'
+import React, {
+  forwardRef,
+  useRef,
+  useState,
+  useEffect,
+  useImperativeHandle,
+  memo,
+  useMemo,
+} from 'react'
 import Die from './Die'
 import './styles.scss'
 
-export default class DiceContainer extends Component {
-  constructor(props) {
-    super(props)
-    let diceValues = []
-    for (let i = 0; i < props.numDice; i++) {
-      diceValues[i] = 6
-    }
-    this.state = {
-      totalValue: props.numDice * 6,
-      diceValues,
-    }
-    this.dice = []
-    this.rollCount = 0
+const DiceContainer = forwardRef(({ numDice, totalCb, ...rest }, ref) => {
+  const diceRefs = useRef([])
+  const [totalValue, setTotalValue] = useState(numDice * 6)
+  const [diceValues, setDiceValues] = useState([])
+  const [rollCount, setRollCount] = useState(0)
 
-    this.rollDone = this.rollDone.bind(this)
-    this.rollAll = this.rollAll.bind(this)
-    this.getRollResults = this.getRollResults.bind(this)
-  }
+  useImperativeHandle(ref, () => ({
+    rollAll,
+  }))
 
-  rollAll(values = []) {
-    this.rollCount = 0
+  const rollAll = (values = []) => {
+    setRollCount(diceRefs.current.length)
     let index = 0
-    for (let die of this.dice) {
+    for (let die of diceRefs.current) {
       if (die !== null) {
-        this.rollCount++
         die.rollDie(values[index])
-        index++
+        index += 1
       }
     }
   }
 
-  rollDone() {
-    this.rollCount--
-    if (this.rollCount <= 0) {
-      this.getRollResults()
-    }
+  const onRollDone = () => {
+    setRollCount((count) => count - 1)
   }
 
-  getRollResults() {
-    let totalValue = 0
-    let diceValues = []
-    for (let die of this.dice) {
+  useEffect(() => {
+    if (rollCount <= 0) {
+      setTimeout(getRollResults, 100)
+    }
+  }, [rollCount])
+
+  const getRollResults = () => {
+    let newTotalValue = 0
+    let newDiceValues = []
+    for (let die of diceRefs.current) {
       if (die !== null) {
-        let value = die.getValue()
-        diceValues.push(value)
-        totalValue += value
+        const value = die.getValue()
+        newDiceValues.push(value)
+        newTotalValue += value
       }
     }
-    this.setState({ totalValue, diceValues })
-    this.props.totalCb(totalValue, diceValues)
+    setTotalValue(newTotalValue)
+    setDiceValues(newDiceValues)
+    totalCb(newTotalValue, newDiceValues)
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.numDice !== this.props.numDice) {
-      this.getRollResults()
-    }
-  }
+  useEffect(() => {
+    getRollResults()
+  }, [numDice])
 
-  render() {
-    let { props } = this
+  const getDice = useMemo(() => {
     let dice = []
-    this.dice.splice(props.numDice, 100 - props.numDice)
-    for (let i = 0; i < props.numDice; i++) {
+    for (let i = 0; i < numDice; i++) {
       dice.push(
-        <Die
-          {...props}
-          key={i}
-          rollDone={this.rollDone}
-          ref={(die) => (this.dice[i] = die)}
-        />
+        <Die {...rest} key={i} onRollDone={onRollDone} ref={(die) => (diceRefs.current[i] = die)} />
       )
     }
+    return dice
+  }, [rest, numDice, onRollDone])
 
-    return <div className='dice'>{dice}</div>
-  }
-}
+  return <div className='dice'>{getDice}</div>
+})
+
+export default memo(DiceContainer)
