@@ -1,12 +1,11 @@
 const { resolve } = require('path')
-var webpack = require('webpack')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
 module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   entry: [
-    'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     './src/App.js',
@@ -28,6 +27,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env'],
+            plugins: ['react-refresh/babel'],
           },
         },
         exclude: /node_modules/,
@@ -38,12 +38,9 @@ module.exports = {
       },
     ],
   },
-  // devServer: {
-  //   hot: true,
-  //   contentBase: resolve(__dirname, 'dist'),
-  //   publicPath: '/',
-  //   port: 8080,
-  // },
+  devServer: {
+    hot: true,
+  },
   optimization: {
     moduleIds: 'named',
   },
@@ -52,6 +49,6 @@ module.exports = {
       inject: true,
       template: './index.html',
     }),
-    new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
   ],
 }
