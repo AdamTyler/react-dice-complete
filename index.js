@@ -1,5 +1,8 @@
+// This file used for docs page
 import TestApp from './src/TestApp'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
-ReactDOM.render(<TestApp />, document.getElementById('app'))
+const container = document.getElementById('app')
+const root = createRoot(container)
+root.render(<TestApp />)
