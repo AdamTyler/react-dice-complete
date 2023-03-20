@@ -1,5 +1,4 @@
 const { resolve } = require('path')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   mode: 'production',
@@ -36,16 +35,11 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
     ],
   },
   optimization: {
     moduleIds: 'named',
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'react-dice-complete.css',
-    }),
-  ],
 }
