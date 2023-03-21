@@ -14,23 +14,23 @@ npm install react-dice-complete
 
 - [React](https://facebook.github.io/react/)
 
-## Example Usage (ES6)
+## Usage
 
 ```javascript
 import React, { useRef } from 'react'
-import ReactDice from 'react-dice-complete'
+import ReactDice, { ReactDiceRef } from 'react-dice-complete'
 
 const MyDiceApp = () => {
 
-  const reactDice = useRef()
+  const reactDice = useRef<ReactDiceRef>(null)
 
-  const rollDone = (totalValue, values) => {
+  const rollDone = (totalValue: number, values: number[]) => {
     console.log('individual die values array:', values)
     console.log('total dice value:', totalValue)
   }
 
   const rollAll = () => {
-    reactDice.current.rollAll()
+    reactDice.current?.rollAll()
   }
 
   render() {
@@ -38,8 +38,8 @@ const MyDiceApp = () => {
       <div>
         <ReactDice
           numDice={2}
-          rollDone={rollDone}
           ref={reactDice}
+          rollDone={rollDone}
         />
       </div>
     )
