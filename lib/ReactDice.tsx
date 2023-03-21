@@ -1,14 +1,14 @@
 // This file used for production
 import React, { forwardRef, useCallback } from 'react'
-import DiceContainer, { DiceContainerProps, DieContainerHandle } from './DiceContainer'
+import DiceContainer, { DiceContainerProps, DieContainerRef } from './DiceContainer'
 
 export interface ReactDiceProps extends Omit<DiceContainerProps, 'totalCb'> {
   rollDone: (total: number, diceValues: number[]) => void
 }
 
-export type ReactDiceHandle = DieContainerHandle
+export type ReactDiceRef = DieContainerRef
 
-const ReactDice = forwardRef<DieContainerHandle, ReactDiceProps>((props, ref) => {
+const ReactDice = forwardRef<DieContainerRef, ReactDiceProps>((props, ref) => {
   const totalCb = useCallback(
     (total: number, diceValues: number[]) => {
       props.rollDone(total, diceValues)

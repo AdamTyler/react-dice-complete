@@ -7,21 +7,21 @@ import React, {
   memo,
   useMemo,
 } from 'react'
-import Die, { DieHandle, DieProps } from './Die'
+import Die, { DieRef, DieProps } from './Die'
 import './styles.scss'
 
-export type DieContainerHandle = {
+export type DieContainerRef = {
   rollAll: (values?: number[]) => void
 }
 
-export interface DiceContainerProps extends DieProps {
+export interface DiceContainerProps extends Omit<DieProps, 'onRollDone'> {
   numDice: number
   totalCb: (newTotalValue: number, newDiceValues: number[]) => void
 }
 
-const DiceContainer = forwardRef<DieContainerHandle, DiceContainerProps>(
+const DiceContainer = forwardRef<DieContainerRef, DiceContainerProps>(
   ({ numDice, totalCb, ...rest }, ref): JSX.Element => {
-    const diceRefs = useRef<Array<DieHandle | null>>([])
+    const diceRefs = useRef<Array<DieRef | null>>([])
     const [totalValue, setTotalValue] = useState(numDice * 6)
     const [diceValues, setDiceValues] = useState<number[]>([])
     const [rollCount, setRollCount] = useState(0)

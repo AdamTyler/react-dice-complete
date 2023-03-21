@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 
-export type DieHandle = {
+export type DieRef = {
   getValue: () => number
   rollDie: (value?: number) => void
 }
@@ -14,14 +14,14 @@ export interface DieProps {
   dotColor?: string
   faceColor?: string
   margin?: number
-  onRollDone?: (value: number) => void
+  onRollDone: (value: number) => void
   outline?: boolean
   outlineColor?: string
   rollTime?: number
   sides?: number
 }
 
-const Die = forwardRef<DieHandle, DieProps>(
+const Die = forwardRef<DieRef, DieProps>(
   (
     {
       defaultRoll = 4,
@@ -64,7 +64,7 @@ const Die = forwardRef<DieHandle, DieProps>(
       dieRef.current?.classList.add(`roll${roll}`)
       setTimeout(() => {
         setDieValue(roll)
-        onRollDone?.(roll)
+        onRollDone(roll)
       }, rollTime * 1000)
     }
 

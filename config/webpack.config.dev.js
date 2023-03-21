@@ -8,7 +8,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './src/app.tsx',
+    './index.js',
   ],
   output: {
     filename: 'bundle.js',
@@ -23,17 +23,6 @@ module.exports = {
     rules: [
       { test: /\.(t|j)sx?$/, use: { loader: 'ts-loader' }, exclude: /node_modules/ },
       { enforce: 'pre', test: /\.js$/, exclude: /node_modules/, loader: 'source-map-loader' },
-      // {
-      //   test: /\.(js|jsx)$/,
-      //   use: {
-      //     loader: 'babel-loader',
-      //     options: {
-      //       presets: ['@babel/preset-env', '@babel/preset-react'],
-      //       plugins: ['react-refresh/babel'],
-      //     },
-      //   },
-      //   exclude: /node_modules/,
-      // },
       {
         test: /\.(css|scss)$/,
         use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],

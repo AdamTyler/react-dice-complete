@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import ReactDice, { ReactDiceHandle } from './ReactDice'
+import ReactDice, { ReactDiceRef } from '../lib/ReactDice'
 
 const TestApp = () => {
   const [outline, setOutline] = useState(false)
@@ -11,7 +11,7 @@ const TestApp = () => {
   const [disableIndividual, setDisableIndividual] = useState(false)
   const [disableRandom, setDisableRandom] = useState(false)
   const [margin, setMargin] = useState(15)
-  const [numDice, setNumDice] = useState(4)
+  const [numDice, setNumDice] = useState(8)
   const [sides, setSides] = useState(6)
   const [rollTime, setRollTime] = useState(2)
   const [faceColor, setFaceColor] = useState('#FF00AC')
@@ -19,7 +19,7 @@ const TestApp = () => {
   const [rolling, setRolling] = useState(false)
   const [diceTotal, setDiceTotal] = useState()
 
-  const reactDice = useRef<ReactDiceHandle>(null)
+  const reactDice = useRef<ReactDiceRef>(null)
 
   const rollDone = (value, values) => {
     setRolling(false)
