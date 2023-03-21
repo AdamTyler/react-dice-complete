@@ -1,5 +1,4 @@
 const { resolve } = require('path')
-const TypescriptDeclarationPlugin = require('typescript-declaration-webpack-plugin')
 
 module.exports = {
   mode: 'production',
@@ -44,5 +43,4 @@ module.exports = {
   optimization: {
     moduleIds: 'named',
   },
-  plugins: [new TypescriptDeclarationPlugin()],
 }

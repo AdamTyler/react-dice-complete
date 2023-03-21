@@ -69,7 +69,7 @@ const Die = forwardRef<DieRef, DieProps>(
     }
 
     // face styles
-    let faceStyle: Partial<CSSStyleDeclaration> = {
+    let faceStyle: React.CSSProperties = {
       background: faceColor,
       borderRadius: `${dieCornerRadius}px`,
       height: `${dieSize}px`,
@@ -99,7 +99,7 @@ const Die = forwardRef<DieRef, DieProps>(
     }
     // dot styles
     const dotSize = dieSize / 6 - 2
-    const dotStyle: Partial<CSSStyleDeclaration> = {
+    const dotStyle: React.CSSProperties = {
       background: dotColor,
       height: `${dotSize}px`,
       width: `${dotSize}px`,
