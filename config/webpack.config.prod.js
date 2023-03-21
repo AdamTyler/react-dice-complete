@@ -2,7 +2,7 @@ const { resolve } = require('path')
 
 module.exports = {
   mode: 'production',
-  entry: './src/ReactDice.js',
+  entry: './lib/ReactDice.tsx',
   output: {
     filename: 'react-dice-complete.js',
     path: resolve(__dirname, '../dist'),
@@ -18,21 +18,22 @@ module.exports = {
     },
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
     modules: [resolve(__dirname, 'src'), 'node_modules'],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(t|j)sx?$/,
         use: {
-          loader: 'babel-loader',
+          loader: 'ts-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
+            transpileOnly: false,
           },
         },
         exclude: /node_modules/,
       },
+      { enforce: 'pre', test: /\.js$/, exclude: /node_modules/, loader: 'source-map-loader' },
       {
         test: /\.(css|scss)$/,
         use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],

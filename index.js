@@ -1,4 +1,4 @@
-// This file used for docs page
+// This file used for dev and docs page
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 

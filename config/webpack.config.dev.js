@@ -4,11 +4,11 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 module.exports = {
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './src/App.js',
+    './index.js',
   ],
   output: {
     filename: 'bundle.js',
@@ -16,22 +16,13 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
     modules: [resolve(__dirname, 'src'), 'node_modules'],
   },
   module: {
     rules: [
-      {
-        test: /\.(js|jsx)$/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: ['react-refresh/babel'],
-          },
-        },
-        exclude: /node_modules/,
-      },
+      { test: /\.(t|j)sx?$/, use: { loader: 'ts-loader' }, exclude: /node_modules/ },
+      { enforce: 'pre', test: /\.js$/, exclude: /node_modules/, loader: 'source-map-loader' },
       {
         test: /\.(css|scss)$/,
         use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],

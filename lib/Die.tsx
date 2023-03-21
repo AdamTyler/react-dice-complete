@@ -1,25 +1,46 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 
-const Die = forwardRef(
+export type DieRef = {
+  getValue: () => number
+  rollDie: (value?: number) => void
+}
+
+export interface DieProps {
+  defaultRoll?: number
+  dieCornerRadius?: number
+  dieSize?: number
+  disableIndividual?: boolean
+  disableRandom?: boolean
+  dotColor?: string
+  faceColor?: string
+  margin?: number
+  onRollDone: (value: number) => void
+  outline?: boolean
+  outlineColor?: string
+  rollTime?: number
+  sides?: number
+}
+
+const Die = forwardRef<DieRef, DieProps>(
   (
     {
-      defaultRoll,
-      dieCornerRadius,
-      dieSize,
-      disableIndividual,
-      disableRandom,
-      dotColor,
-      faceColor,
-      margin,
+      defaultRoll = 4,
+      dieCornerRadius = 5,
+      dieSize = 60,
+      disableIndividual = false,
+      disableRandom = false,
+      dotColor = '#1dff00',
+      faceColor = '#ff00ac',
+      margin = 15,
       onRollDone,
-      outline,
-      outlineColor,
-      rollTime,
-      sides,
-    },
+      outline = false,
+      outlineColor = '#000000',
+      rollTime = 2,
+      sides = 6,
+    }: DieProps,
     ref
-  ) => {
-    const dieRef = useRef()
+  ): JSX.Element => {
+    const dieRef = useRef<HTMLDivElement>(null)
 
     useImperativeHandle(ref, () => ({
       getValue: () => {
@@ -36,11 +57,11 @@ const Die = forwardRef(
       return Math.floor(Math.random() * max) + min
     }
 
-    const rollDie = (value) => {
-      dieRef.current.className = `die`
-      void dieRef.current.offsetWidth
+    const rollDie = (value?: number) => {
+      dieRef.current && (dieRef.current.className = `die`)
+      void dieRef.current?.offsetWidth
       let roll = disableRandom ? dieValue : value || getRandomInt()
-      dieRef.current.classList.add(`roll${roll}`)
+      dieRef.current?.classList.add(`roll${roll}`)
       setTimeout(() => {
         setDieValue(roll)
         onRollDone(roll)
@@ -48,7 +69,7 @@ const Die = forwardRef(
     }
 
     // face styles
-    let faceStyle = {
+    let faceStyle: React.CSSProperties = {
       background: faceColor,
       borderRadius: `${dieCornerRadius}px`,
       height: `${dieSize}px`,
@@ -78,7 +99,7 @@ const Die = forwardRef(
     }
     // dot styles
     const dotSize = dieSize / 6 - 2
-    const dotStyle = {
+    const dotStyle: React.CSSProperties = {
       background: dotColor,
       height: `${dotSize}px`,
       width: `${dotSize}px`,
@@ -125,7 +146,7 @@ const Die = forwardRef(
     return (
       <div
         className='die-container'
-        onClick={disableIndividual ? null : () => rollDie()}
+        onClick={disableIndividual ? undefined : () => rollDie()}
         style={containerStyle}
       >
         <div className={`die roll${dieValue}`} ref={dieRef} style={rollStyle}>
