@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import ReactDice from './ReactDice'
+import * as React from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import ReactDice, { ReactDiceHandle } from './ReactDice'
 
 const TestApp = () => {
   const [outline, setOutline] = useState(false)
@@ -18,7 +19,7 @@ const TestApp = () => {
   const [rolling, setRolling] = useState(false)
   const [diceTotal, setDiceTotal] = useState()
 
-  const reactDice = useRef()
+  const reactDice = useRef<ReactDiceHandle>(null)
 
   const rollDone = (value, values) => {
     setRolling(false)
@@ -26,15 +27,15 @@ const TestApp = () => {
   }
 
   const rollAll = () => {
-    reactDice.current.rollAll()
+    reactDice.current?.rollAll()
     setRolling(true)
   }
 
   useEffect(() => {
     if (window.innerWidth < 576) {
-      document.getElementById('collapseForm').classList.remove('show')
+      document.getElementById('collapseForm')?.classList.remove('show')
     } else {
-      document.getElementById('collapseForm').classList.add('show')
+      document.getElementById('collapseForm')?.classList.add('show')
     }
   }, [])
 
@@ -58,7 +59,22 @@ const TestApp = () => {
         sides={sides}
       />
     )
-  })
+  }, [
+    defaultRoll,
+    dieCornerRadius,
+    dieSize,
+    disableIndividual,
+    disableRandom,
+    dotColor,
+    faceColor,
+    margin,
+    numDice,
+    outline,
+    outlineColor,
+    rollDone,
+    rollTime,
+    sides,
+  ])
 
   let colorStyle = { height: '2.375rem' }
 
