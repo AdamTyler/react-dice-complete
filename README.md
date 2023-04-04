@@ -33,17 +33,15 @@ const MyDiceApp = () => {
     reactDice.current?.rollAll()
   }
 
-  render() {
-    return (
-      <div>
-        <ReactDice
-          numDice={2}
-          ref={reactDice}
-          rollDone={rollDone}
-        />
-      </div>
-    )
-  }
+  return (
+    <div>
+      <ReactDice
+        numDice={2}
+        ref={reactDice}
+        rollDone={rollDone}
+      />
+    </div>
+  )
 
 }
 ```
