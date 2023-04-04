@@ -10,10 +10,6 @@ Library for creating multisided dice and rolling them. Check out the demo [here]
 npm install react-dice-complete
 ```
 
-## Dependencies
-
-- [React](https://facebook.github.io/react/)
-
 ## Usage
 
 ```javascript
@@ -34,13 +30,11 @@ const MyDiceApp = () => {
   }
 
   return (
-    <div>
-      <ReactDice
-        numDice={2}
-        ref={reactDice}
-        rollDone={rollDone}
-      />
-    </div>
+    <ReactDice
+      numDice={2}
+      ref={reactDice}
+      rollDone={rollDone}
+    />
   )
 
 }
