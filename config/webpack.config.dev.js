@@ -1,6 +1,7 @@
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+const ReactRefreshTypeScript = require('react-refresh-typescript')
 
 module.exports = {
   mode: 'development',
@@ -21,7 +22,19 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.(t|j)sx?$/, use: { loader: 'ts-loader' }, exclude: /node_modules/ },
+      {
+        test: /\.(t|j)sx?$/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            // getCustomTransformers: () => ({
+            //   before: ReactRefreshTypeScript(),
+            // }),
+            transpileOnly: true,
+          },
+        },
+        exclude: /node_modules/,
+      },
       { enforce: 'pre', test: /\.js$/, exclude: /node_modules/, loader: 'source-map-loader' },
       {
         test: /\.(css|scss)$/,

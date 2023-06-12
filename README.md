@@ -1,4 +1,7 @@
-# React Dice
+# React Dice 🎲
+
+[![npm version](https://badge.fury.io/js/react-dice-complete.svg)](https://badge.fury.io/js/react-dice-complete)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
 Library for creating multisided dice and rolling them. Check out the demo [here](http://adam-tyler.com/react-dice-complete).
 
@@ -9,10 +12,6 @@ Library for creating multisided dice and rolling them. Check out the demo [here]
 ```
 npm install react-dice-complete
 ```
-
-## Dependencies
-
-- [React](https://facebook.github.io/react/)
 
 ## Usage
 
