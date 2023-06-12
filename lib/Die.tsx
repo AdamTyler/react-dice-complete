@@ -50,6 +50,7 @@ const Die = forwardRef<DieRef, DieProps>(
     }))
 
     const [dieValue, setDieValue] = useState(defaultRoll || 6)
+    const [hasRolled, setHasRolled] = useState(false)
 
     const getRandomInt = () => {
       let min = 1
@@ -63,6 +64,7 @@ const Die = forwardRef<DieRef, DieProps>(
       let roll = disableRandom ? dieValue : value || getRandomInt()
       dieRef.current?.classList.add(`roll${roll}`)
       setTimeout(() => {
+        setHasRolled(true)
         setDieValue(roll)
         onRollDone(roll)
       }, rollTime * 1000)
@@ -143,13 +145,18 @@ const Die = forwardRef<DieRef, DieProps>(
       margin: `${margin}px`,
       display: 'inline-block',
     }
+
     return (
       <div
         className='die-container'
         onClick={disableIndividual ? undefined : () => rollDie()}
         style={containerStyle}
       >
-        <div className={`die roll${dieValue}`} ref={dieRef} style={rollStyle}>
+        <div
+          className={`die ${hasRolled ? 'roll' : 'init-roll'}${dieValue}`}
+          ref={dieRef}
+          style={rollStyle}
+        >
           <div className='face six' style={Object.assign({}, faceStyle, f6Style)}>
             <span className='dot' style={Object.assign({}, dotStyle, d1Style)} />
             <span className='dot' style={Object.assign({}, dotStyle, d2Style)} />

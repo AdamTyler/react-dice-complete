@@ -3,21 +3,21 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import ReactDice, { ReactDiceRef } from '../lib/ReactDice'
 
 const TestApp = () => {
-  const [outline, setOutline] = useState(false)
-  const [outlineColor, setOutlineColor] = useState('#000000')
-  const [defaultRoll, setDefaultRoll] = useState(5)
-  const [dieSize, setDieSize] = useState(60)
+  const [defaultRoll, setDefaultRoll] = useState(1)
+  const [diceTotal, setDiceTotal] = useState()
   const [dieCornerRadius, setDieCornerRadius] = useState(5)
+  const [dieSize, setDieSize] = useState(60)
   const [disableIndividual, setDisableIndividual] = useState(false)
   const [disableRandom, setDisableRandom] = useState(false)
-  const [margin, setMargin] = useState(15)
-  const [numDice, setNumDice] = useState(8)
-  const [sides, setSides] = useState(6)
-  const [rollTime, setRollTime] = useState(2)
-  const [faceColor, setFaceColor] = useState('#FF00AC')
   const [dotColor, setDotColor] = useState('#1eff00')
+  const [faceColor, setFaceColor] = useState('#FF00AC')
+  const [margin, setMargin] = useState(15)
+  const [numDice, setNumDice] = useState(1)
+  const [outline, setOutline] = useState(false)
+  const [outlineColor, setOutlineColor] = useState('#000000')
   const [rolling, setRolling] = useState(false)
-  const [diceTotal, setDiceTotal] = useState()
+  const [rollTime, setRollTime] = useState(2)
+  const [sides, setSides] = useState(6)
 
   const reactDice = useRef<ReactDiceRef>(null)
 

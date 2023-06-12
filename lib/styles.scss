@@ -5,6 +5,25 @@
   position: relative;
   transform-style: preserve-3d;
 
+  &.init-roll1 {
+    transform: rotateY(180deg);
+  }
+  &.init-roll2 {
+    transform: rotateY(90deg);
+  }
+  &.init-roll3 {
+    transform: rotateX(-90deg);
+  }
+  &.init-roll4 {
+    transform: rotateX(90deg);
+  }
+  &.init-roll5 {
+    transform: rotateY(-90deg);
+  }
+  &.init-roll6 {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+
   &.roll1 {
     transform-style: preserve-3d;
     animation-name: rotate1;
