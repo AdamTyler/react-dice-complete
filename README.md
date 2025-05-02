@@ -23,6 +23,10 @@ const MyDiceApp = () => {
 
   const reactDice = useRef<ReactDiceRef>(null)
 
+  const onRoll = () => {
+    console.log("Rolling...")
+  }
+
   const rollDone = (totalValue: number, values: number[]) => {
     console.log('individual die values array:', values)
     console.log('total dice value:', totalValue)
@@ -37,6 +41,7 @@ const MyDiceApp = () => {
       numDice={2}
       ref={reactDice}
       rollDone={rollDone}
+      onRoll={onRoll}
     />
   )
 
@@ -59,6 +64,7 @@ const MyDiceApp = () => {
 |      **`outline`**      |      `{Bool}`       |  `false`  | Show a 1px outline for each face of the die               |
 |   **`outlineColor`**    |     `{String}`      | `#000000` | hex color code for outline color if outline is `true`     |
 |     **`rollDone`**      | `{String/Function}` |  `null`   | callback returns total & individual values from dice roll |
+|     **`onRoll`**      | `{Function}` |  `null`   | callback triggered when die rolls |
 |     **`rollTime`**      |     `{Number}`      |    `2`    | time in seconds for the roll animation                    |
 
 ## Provided functions

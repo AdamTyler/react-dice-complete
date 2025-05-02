@@ -26,6 +26,10 @@ const TestApp = () => {
     setDiceTotal(value)
   }
 
+  const handleOnRoll = () => {
+    console.log('Rolling...');
+  }
+
   const rollAll = () => {
     reactDice.current?.rollAll()
     setRolling(true)
@@ -54,6 +58,7 @@ const TestApp = () => {
         outline={outline}
         outlineColor={outlineColor}
         ref={reactDice}
+        onRoll={handleOnRoll}
         rollDone={rollDone}
         rollTime={rollTime}
         sides={sides}
@@ -71,6 +76,7 @@ const TestApp = () => {
     numDice,
     outline,
     outlineColor,
+    handleOnRoll,
     rollDone,
     rollTime,
     sides,

@@ -16,6 +16,7 @@ export type DieContainerRef = {
 
 export interface DiceContainerProps extends Omit<DieProps, 'onRollDone'> {
   numDice: number
+  onRoll?: () => void
   totalCb: (newTotalValue: number, newDiceValues: number[]) => void
 }
 

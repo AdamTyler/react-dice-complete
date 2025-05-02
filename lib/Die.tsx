@@ -14,6 +14,7 @@ export interface DieProps {
   dotColor?: string
   faceColor?: string
   margin?: number
+  onRoll?: () => void 
   onRollDone: (value: number) => void
   outline?: boolean
   outlineColor?: string
@@ -32,6 +33,7 @@ const Die = forwardRef<DieRef, DieProps>(
       dotColor = '#1dff00',
       faceColor = '#ff00ac',
       margin = 15,
+      onRoll,
       onRollDone,
       outline = false,
       outlineColor = '#000000',
@@ -41,7 +43,7 @@ const Die = forwardRef<DieRef, DieProps>(
     ref
   ): JSX.Element => {
     const dieRef = useRef<HTMLDivElement>(null)
-
+    
     useImperativeHandle(ref, () => ({
       getValue: () => {
         return dieValue
@@ -62,6 +64,9 @@ const Die = forwardRef<DieRef, DieProps>(
       dieRef.current && (dieRef.current.className = `die`)
       void dieRef.current?.offsetWidth
       let roll = disableRandom ? dieValue : value || getRandomInt()
+      if (onRoll) {
+        onRoll()
+      }
       dieRef.current?.classList.add(`roll${roll}`)
       setTimeout(() => {
         setHasRolled(true)
