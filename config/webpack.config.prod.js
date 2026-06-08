@@ -36,7 +36,7 @@ module.exports = {
       { enforce: 'pre', test: /\.js$/, exclude: /node_modules/, loader: 'source-map-loader' },
       {
         test: /\.(css|scss)$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader', { loader: 'sass-loader', options: { api: 'modern' } }],
       },
     ],
   },
