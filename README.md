@@ -51,15 +51,16 @@ const MyDiceApp = () => {
 |  **`dieCornerRadius`**  |     `{Number}`      |    `5`    | Rounded radius to use for each die                        |
 |      **`dieSize`**      |     `{Number}`      |   `60`    | px width/height of each dice face                         |
 | **`disableIndividual`** |      `{Bool}`       |  `false`  | disable clicks on die to roll each individually           |
-|  **`disabbleRandom`**   |      `{Bool}`       |  `false`  | disable random die chance and reuses current value        |
+|  **`disableRandom`**    |      `{Bool}`       |  `false`  | disable random die chance and reuses current value        |
 |     **`dotColor`**      |     `{String}`      | `#1eff00` | hex color code for the dots on the die                    |
 |     **`faceColor`**     |     `{String}`      | `#ff00ac` | hex color code for the face of the die                    |
 |      **`margin`**       |     `{Number}`      |   `15`    | margin between each die                                   |
 |      **`numDice`**      |     `{Number}`      |    `4`    | The number of dice you wish to have                       |
 |      **`outline`**      |      `{Bool}`       |  `false`  | Show a 1px outline for each face of the die               |
 |   **`outlineColor`**    |     `{String}`      | `#000000` | hex color code for outline color if outline is `true`     |
-|     **`rollDone`**      | `{String/Function}` |  `null`   | callback returns total & individual values from dice roll |
+|     **`rollDone`**      |    `{Function}`     |  `null`   | callback returns total & individual values from dice roll |
 |     **`rollTime`**      |     `{Number}`      |    `2`    | time in seconds for the roll animation                    |
+|      **`sides`**        |     `{Number}`      |    `6`    | number of sides on each die (visual display is always d6) |
 
 ## Provided functions
 
