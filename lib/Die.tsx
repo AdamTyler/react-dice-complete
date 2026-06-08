@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 
 export type DieRef = {
   getValue: () => number
@@ -24,12 +24,12 @@ export interface DieProps {
 const Die = forwardRef<DieRef, DieProps>(
   (
     {
-      defaultRoll = 4,
+      defaultRoll = 6,
       dieCornerRadius = 5,
       dieSize = 60,
       disableIndividual = false,
       disableRandom = false,
-      dotColor = '#1dff00',
+      dotColor = '#1eff00',
       faceColor = '#ff00ac',
       margin = 15,
       onRollDone,
@@ -41,6 +41,13 @@ const Die = forwardRef<DieRef, DieProps>(
     ref
   ): JSX.Element => {
     const dieRef = useRef<HTMLDivElement>(null)
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+    useEffect(() => {
+      return () => {
+        if (timeoutRef.current !== null) clearTimeout(timeoutRef.current)
+      }
+    }, [])
 
     useImperativeHandle(ref, () => ({
       getValue: () => {
@@ -49,24 +56,29 @@ const Die = forwardRef<DieRef, DieProps>(
       rollDie,
     }))
 
-    const [dieValue, setDieValue] = useState(defaultRoll || 6)
+    // Clamp initial value to valid d6 range
+    const clampedDefault = Math.min(Math.max(defaultRoll || 6, 1), 6)
+    const [dieValue, setDieValue] = useState(clampedDefault)
     const [hasRolled, setHasRolled] = useState(false)
 
+    // Only d6 faces are rendered; clamp to 1-6 regardless of sides prop
     const getRandomInt = () => {
-      let min = 1
-      let max = Math.ceil(sides)
-      return Math.floor(Math.random() * max) + min
+      const max = Math.min(Math.ceil(sides), 6)
+      return Math.floor(Math.random() * max) + 1
     }
 
     const rollDie = (value?: number) => {
       dieRef.current && (dieRef.current.className = `die`)
       void dieRef.current?.offsetWidth
-      let roll = disableRandom ? dieValue : value || getRandomInt()
+      const rawRoll = disableRandom ? dieValue : value || getRandomInt()
+      const roll = Math.min(Math.max(rawRoll, 1), 6)
       dieRef.current?.classList.add(`roll${roll}`)
-      setTimeout(() => {
+      if (timeoutRef.current !== null) clearTimeout(timeoutRef.current)
+      timeoutRef.current = setTimeout(() => {
         setHasRolled(true)
         setDieValue(roll)
         onRollDone(roll)
+        timeoutRef.current = null
       }, rollTime * 1000)
     }
 
@@ -146,10 +158,17 @@ const Die = forwardRef<DieRef, DieProps>(
       display: 'inline-block',
     }
 
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') rollDie()
+    }
+
     return (
       <div
         className='die-container'
         onClick={disableIndividual ? undefined : () => rollDie()}
+        onKeyDown={disableIndividual ? undefined : handleKeyDown}
+        role={disableIndividual ? undefined : 'button'}
+        tabIndex={disableIndividual ? undefined : 0}
         style={containerStyle}
       >
         <div
