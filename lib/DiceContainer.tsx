@@ -1,11 +1,11 @@
 import React, {
   forwardRef,
   useRef,
-  useState,
   useEffect,
   useImperativeHandle,
   memo,
   useMemo,
+  useCallback,
 } from 'react'
 import Die, { DieRef, DieProps } from './Die'
 import './styles.scss'
@@ -22,36 +22,13 @@ export interface DiceContainerProps extends Omit<DieProps, 'onRollDone'> {
 const DiceContainer = forwardRef<DieContainerRef, DiceContainerProps>(
   ({ numDice, totalCb, ...rest }, ref): JSX.Element => {
     const diceRefs = useRef<Array<DieRef | null>>([])
-    const [totalValue, setTotalValue] = useState(numDice * 6)
-    const [diceValues, setDiceValues] = useState<number[]>([])
-    const [rollCount, setRollCount] = useState(0)
+    const rollCountRef = useRef(0)
 
     useImperativeHandle(ref, () => ({
       rollAll,
     }))
 
-    const rollAll = (values = []) => {
-      setRollCount(diceRefs.current.length)
-      let index = 0
-      for (let die of diceRefs.current) {
-        if (die !== null) {
-          die.rollDie(values[index])
-          index += 1
-        }
-      }
-    }
-
-    const onRollDone = () => {
-      setRollCount((count) => count - 1)
-    }
-
-    useEffect(() => {
-      if (rollCount <= 0) {
-        setTimeout(getRollResults, 100)
-      }
-    }, [rollCount])
-
-    const getRollResults = () => {
+    const getRollResults = useCallback(() => {
       let newTotalValue = 0
       let newDiceValues: number[] = []
       for (let die of diceRefs.current) {
@@ -61,17 +38,39 @@ const DiceContainer = forwardRef<DieContainerRef, DiceContainerProps>(
           newTotalValue += value
         }
       }
-      setTotalValue(newTotalValue)
-      setDiceValues(newDiceValues)
       totalCb(newTotalValue, newDiceValues)
+    }, [totalCb])
+
+    const rollAll = (values: number[] = []) => {
+      // Truncate stale refs left over from a previous higher numDice
+      diceRefs.current.length = numDice
+      const liveCount = diceRefs.current.filter(Boolean).length
+      rollCountRef.current = liveCount
+      let index = 0
+      for (let die of diceRefs.current) {
+        if (die !== null) {
+          die.rollDie(values[index])
+          index += 1
+        }
+      }
     }
 
+    const onRollDone = useCallback(() => {
+      rollCountRef.current -= 1
+      if (rollCountRef.current <= 0) {
+        // Small delay lets every die's setState flush before we read values
+        setTimeout(getRollResults, 100)
+      }
+    }, [getRollResults])
+
     useEffect(() => {
+      // Truncate stale refs and report updated totals whenever count changes
+      diceRefs.current.length = numDice
       getRollResults()
-    }, [numDice])
+    }, [numDice, getRollResults])
 
     const getDice = useMemo(() => {
-      let dice: JSX.Element[] = []
+      const dice: JSX.Element[] = []
       for (let i = 0; i < numDice; i++) {
         dice.push(
           <Die
