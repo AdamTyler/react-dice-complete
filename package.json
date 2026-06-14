@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node_modules/.bin/webpack-dev-server --config config/webpack.config.dev.js",
     "build": "webpack --config config/webpack.config.prod.js",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "test": "echo \"No test specified\" && exit 0",
     "prepare": "npm run build",
     "docs": "webpack --config config/webpack.config.docs.js"
