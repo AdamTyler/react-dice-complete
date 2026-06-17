@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import ReactDice, { ReactDiceRef } from '../lib/ReactDice'
 
 const TestApp = () => {
@@ -18,10 +18,11 @@ const TestApp = () => {
   const [rolling, setRolling] = useState(false)
   const [rollTime, setRollTime] = useState(2)
   const [sides, setSides] = useState(6)
+  const [showConfig, setShowConfig] = useState(false)
 
   const reactDice = useRef<ReactDiceRef>(null)
 
-  const rollDone = (value: number, values: number[]) => {
+  const rollDone = (value: number, _values: number[]) => {
     setRolling(false)
     setDiceTotal(value)
   }
@@ -30,14 +31,6 @@ const TestApp = () => {
     reactDice.current?.rollAll()
     setRolling(true)
   }
-
-  useEffect(() => {
-    if (window.innerWidth < 576) {
-      document.getElementById('collapseForm')?.classList.remove('show')
-    } else {
-      document.getElementById('collapseForm')?.classList.add('show')
-    }
-  }, [])
 
   const getDice = useCallback(() => {
     return (
@@ -71,201 +64,186 @@ const TestApp = () => {
     numDice,
     outline,
     outlineColor,
-    rollDone,
     rollTime,
     sides,
   ])
 
-  let colorStyle = { height: '2.375rem' }
-
   return (
-    <div className='dice-test'>
-      <a
-        className='row card card-header collapse-title hidden-sm-up'
-        data-toggle='collapse'
-        href='#collapseForm'
-        aria-expanded='false'
-        aria-controls='collapseForm'
+    <div className='demo'>
+      {/* Mobile-only toggle for the configuration panel */}
+      <button
+        type='button'
+        className='config-toggle'
+        aria-expanded={showConfig}
+        aria-controls='configPanel'
+        onClick={() => setShowConfig((v) => !v)}
       >
-        Show Config Options &#9660;
-      </a>
-      <div className='collapse' id='collapseForm'>
-        <form className='row controls align-items-end'>
-          <fieldset className='form-group col-xs-6 col-sm-4 col-md-3'>
+        <span>Configure dice</span>
+        <span className='chevron' aria-hidden='true'>
+          ▾
+        </span>
+      </button>
+
+      <div
+        id='configPanel'
+        className={`panel config-collapsible${showConfig ? ' is-open' : ''}`}
+      >
+        <form className='controls' onSubmit={(e) => e.preventDefault()}>
+          <div className='field'>
             <label htmlFor='numDice'>Dice</label>
             <input
               type='number'
               name='numDice'
               id='numDice'
-              className='form-control'
+              className='input'
               value={numDice}
               onChange={(e) => setNumDice(parseInt(e.target.value, 10))}
               min='1'
               max='100'
             />
-          </fieldset>
-          <fieldset className='form-group col-xs-6 col-sm-4 col-md-3'>
+          </div>
+
+          <div className='field'>
             <label htmlFor='faceColor'>Face Color</label>
             <input
               type='color'
               name='faceColor'
               id='faceColor'
-              className='form-control'
-              style={colorStyle}
+              className='input'
               value={faceColor}
               onChange={(e) => setFaceColor(e.target.value)}
             />
-          </fieldset>
-          <fieldset className='form-group col-xs-6 col-sm-4 col-md-3'>
+          </div>
+
+          <div className='field'>
             <label htmlFor='dotColor'>Dot Color</label>
             <input
               type='color'
               name='dotColor'
               id='dotColor'
-              className='form-control'
-              style={colorStyle}
+              className='input'
               value={dotColor}
               onChange={(e) => setDotColor(e.target.value)}
             />
-          </fieldset>
-          <fieldset className='form-group col-xs-6 col-sm-4 col-md-3'>
+          </div>
+
+          <div className='field'>
             <label htmlFor='dieSize'>Die Size (px)</label>
             <input
               type='number'
               name='dieSize'
               id='dieSize'
-              className='form-control'
+              className='input'
               value={dieSize}
               onChange={(e) => setDieSize(parseInt(e.target.value, 10))}
               min='30'
               max='200'
             />
-          </fieldset>
-          <fieldset className='form-group col-xs-6 col-sm-4 col-md-3'>
-            <label htmlFor='dieSize'>Margin Between (px)</label>
+          </div>
+
+          <div className='field'>
+            <label htmlFor='margin'>Margin Between (px)</label>
             <input
               type='number'
               name='margin'
               id='margin'
-              className='form-control'
+              className='input'
               value={margin}
               onChange={(e) => setMargin(parseInt(e.target.value, 10))}
               min='0'
               max='200'
             />
-          </fieldset>
-          <fieldset className='form-group col-xs-6 col-sm-4 col-md-3'>
-            <label htmlFor='dieSize'>Corner Radius (px)</label>
+          </div>
+
+          <div className='field'>
+            <label htmlFor='dieCornerRadius'>Corner Radius (px)</label>
             <input
               type='number'
               name='dieCornerRadius'
               id='dieCornerRadius'
-              className='form-control'
+              className='input'
               value={dieCornerRadius}
               onChange={(e) => setDieCornerRadius(parseInt(e.target.value, 10))}
               min='0'
               max='200'
             />
-          </fieldset>
-          <fieldset className='form-group col-xs-6 col-sm-4 col-md-3'>
+          </div>
+
+          <div className='field'>
             <label htmlFor='rollTime'>Roll Time (seconds)</label>
             <input
               type='number'
               name='rollTime'
               id='rollTime'
-              className='form-control'
+              className='input'
               value={rollTime}
               onChange={(e) => setRollTime(parseInt(e.target.value, 10))}
               min='1'
               max='4'
             />
-          </fieldset>
-          <fieldset className='form-group col-xs-6 col-sm-4 col-md-3'>
-            <div className='form-check'>
-              <label className='form-check-label'>
-                <input
-                  type='checkbox'
-                  className='form-check-input'
-                  name='outline'
-                  id='outline'
-                  checked={outline}
-                  onChange={() => setOutline(!outline)}
-                />
-                {'  '}Outline
-              </label>
-            </div>
-            <div>
+          </div>
+
+          <div className='field'>
+            <span className='field__label'>Outline</span>
+            <label className='check'>
               <input
-                type='color'
-                name='outlineColor'
-                id='outlineColor'
-                className='form-control'
-                style={colorStyle}
-                value={outlineColor}
-                onChange={(e) => setOutlineColor(e.target.value)}
-                disabled={!outline}
+                type='checkbox'
+                name='outline'
+                id='outline'
+                checked={outline}
+                onChange={() => setOutline(!outline)}
               />
-            </div>
-          </fieldset>
-          <fieldset className='form-group col-xs-6 col-sm-4 col-md-3'>
-            <div className='form-check'>
-              <label className='form-check-label'>
-                <input
-                  type='checkbox'
-                  className='form-check-input'
-                  name='disableIndividual'
-                  id='disableIndividual'
-                  checked={disableIndividual}
-                  onChange={() => setDisableIndividual(!disableIndividual)}
-                />{' '}
-                Disable individual roll on click
-              </label>
-            </div>
-          </fieldset>
-          <fieldset className='form-group col-xs-6 col-sm-4 col-md-3'>
-            <div className='form-check'>
-              <label className='form-check-label'>
-                <input
-                  type='checkbox'
-                  className='form-check-input'
-                  name='disableRandom'
-                  id='disableRandom'
-                  checked={disableRandom}
-                  onChange={() => setDisableRandom(!disableRandom)}
-                />{' '}
-                Disable random rolls
-              </label>
-            </div>
-          </fieldset>
+              Enable outline
+            </label>
+            <input
+              type='color'
+              name='outlineColor'
+              id='outlineColor'
+              className='input'
+              value={outlineColor}
+              onChange={(e) => setOutlineColor(e.target.value)}
+              disabled={!outline}
+            />
+          </div>
+
+          <div className='field'>
+            <span className='field__label'>Roll behavior</span>
+            <label className='check'>
+              <input
+                type='checkbox'
+                name='disableIndividual'
+                id='disableIndividual'
+                checked={disableIndividual}
+                onChange={() => setDisableIndividual(!disableIndividual)}
+              />
+              Disable individual roll on click
+            </label>
+            <label className='check'>
+              <input
+                type='checkbox'
+                name='disableRandom'
+                id='disableRandom'
+                checked={disableRandom}
+                onChange={() => setDisableRandom(!disableRandom)}
+              />
+              Disable random rolls
+            </label>
+          </div>
         </form>
       </div>
-      <div className='row info'>
-        <div className='col'>
-          <h4>
-            <button className='btn btn-primary' onClick={rollAll}>
-              Roll All
-            </button>
-            {'   '} or click individual dice
-          </h4>
+
+      <div className='panel action'>
+        <div className='action__left'>
+          <button type='button' className='btn-roll' onClick={rollAll}>
+            Roll All
+          </button>
+          <span className='hint'>or click an individual die</span>
         </div>
 
-        <div className='col'>
-          <h4 className='text-primary'>
-            Dice Total:
-            <span
-              style={{
-                display: rolling ? 'none' : 'inline-block',
-                paddingLeft: '5px',
-              }}
-            >
-              {diceTotal || '...'}
-            </span>
-            <div
-              className='sk-cube-grid'
-              style={{
-                display: rolling ? 'inline-block' : 'none',
-              }}
-            >
+        <div className='total'>
+          <span>Dice Total:</span>
+          {rolling ? (
+            <div className='sk-cube-grid' aria-label='Rolling'>
               <div className='sk-cube sk-cube1' />
               <div className='sk-cube sk-cube2' />
               <div className='sk-cube sk-cube3' />
@@ -276,12 +254,13 @@ const TestApp = () => {
               <div className='sk-cube sk-cube8' />
               <div className='sk-cube sk-cube9' />
             </div>
-          </h4>
+          ) : (
+            <span className='total__value'>{diceTotal ?? '…'}</span>
+          )}
         </div>
       </div>
-      <div className='row dice'>
-        <div className='col'>{getDice()}</div>
-      </div>
+
+      <div className='panel stage'>{getDice()}</div>
     </div>
   )
 }

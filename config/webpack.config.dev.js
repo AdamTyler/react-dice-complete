@@ -30,6 +30,7 @@ module.exports = {
             // getCustomTransformers: () => ({
             //   before: ReactRefreshTypeScript(),
             // }),
+            configFile: resolve(__dirname, '../tsconfig.docs.json'),
             transpileOnly: true,
           },
         },
