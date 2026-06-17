@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "declaration": false
+  },
+  "include": ["lib", "src", "index.tsx"],
+  "exclude": ["lib/**/*.test.ts", "lib/**/*.test.tsx", "node_modules"]
+}

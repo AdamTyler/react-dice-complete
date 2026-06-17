@@ -1,181 +1,598 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="light">
   <head>
-    <title>React Dice Complete</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-      integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
-      crossorigin="anonymous"
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="React Dice Complete — a flexible, animated dice rolling library for React. Try the interactive demo."
     />
+    <meta name="theme-color" content="#6366f1" />
+    <title>React Dice Complete — Animated Dice for React</title>
     <link rel="icon" href="./die-icon.png" />
-    <style type="text/css">
-      .dice-test > .row {
-        margin-bottom: 20px;
-      }
-      .sk-cube-grid {
-        width: 20px;
-        height: 20px;
-        margin: 0 8px;
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      ;(function () {
+        try {
+          var stored = localStorage.getItem('rdc-theme')
+          var prefersDark =
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+          var theme = stored || (prefersDark ? 'dark' : 'light')
+          document.documentElement.setAttribute('data-theme', theme)
+        } catch (e) {}
+      })()
+    </script>
+
+    <style>
+      :root {
+        --bg: #f5f7fb;
+        --surface: #ffffff;
+        --surface-2: #f0f2f8;
+        --text: #1f2430;
+        --muted: #6b7280;
+        --border: #e6e8ef;
+        --primary: #6366f1;
+        --primary-hover: #5457e0;
+        --primary-contrast: #ffffff;
+        --accent: #8b5cf6;
+        --header-grad: linear-gradient(135deg, #6366f1 0%, #8b5cf6 60%, #a855f7 100%);
+        --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 24px rgba(16, 24, 40, 0.06);
+        --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+        --ring: rgba(99, 102, 241, 0.35);
+        --radius: 14px;
       }
 
-      .sk-cube-grid .sk-cube {
-        width: 33%;
-        height: 33%;
-        background-color: #0275d8;
-        float: left;
-        -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-        animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-      }
-      .sk-cube-grid .sk-cube1 {
-        -webkit-animation-delay: 0.2s;
-        animation-delay: 0.2s;
-      }
-      .sk-cube-grid .sk-cube2 {
-        -webkit-animation-delay: 0.3s;
-        animation-delay: 0.3s;
-      }
-      .sk-cube-grid .sk-cube3 {
-        -webkit-animation-delay: 0.4s;
-        animation-delay: 0.4s;
-      }
-      .sk-cube-grid .sk-cube4 {
-        -webkit-animation-delay: 0.1s;
-        animation-delay: 0.1s;
-      }
-      .sk-cube-grid .sk-cube5 {
-        -webkit-animation-delay: 0.2s;
-        animation-delay: 0.2s;
-      }
-      .sk-cube-grid .sk-cube6 {
-        -webkit-animation-delay: 0.3s;
-        animation-delay: 0.3s;
-      }
-      .sk-cube-grid .sk-cube7 {
-        -webkit-animation-delay: 0s;
-        animation-delay: 0s;
-      }
-      .sk-cube-grid .sk-cube8 {
-        -webkit-animation-delay: 0.1s;
-        animation-delay: 0.1s;
-      }
-      .sk-cube-grid .sk-cube9 {
-        -webkit-animation-delay: 0.2s;
-        animation-delay: 0.2s;
+      [data-theme='dark'] {
+        --bg: #0e1016;
+        --surface: #181b24;
+        --surface-2: #1f2330;
+        --text: #e8eaf2;
+        --muted: #98a1b3;
+        --border: #2a2f3d;
+        --primary: #818cf8;
+        --primary-hover: #939dff;
+        --primary-contrast: #0e1016;
+        --accent: #a78bfa;
+        --header-grad: linear-gradient(135deg, #4f46e5 0%, #7c3aed 60%, #9333ea 100%);
+        --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.35);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+        --ring: rgba(129, 140, 248, 0.45);
       }
 
-      @-webkit-keyframes sk-cubeGridScaleDelay {
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          'Inter',
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+      }
+
+      a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 clamp(16px, 5vw, 32px);
+      }
+
+      /* ---------- Header ---------- */
+      .site-header {
+        background: var(--header-grad);
+        color: #fff;
+        padding: clamp(36px, 9vw, 72px) 0 clamp(28px, 7vw, 56px);
+        position: relative;
+        overflow: hidden;
+      }
+      .site-header::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          1200px 300px at 80% -20%,
+          rgba(255, 255, 255, 0.25),
+          transparent 60%
+        );
+        pointer-events: none;
+      }
+      .site-header h1 {
+        font-family: 'Fredoka', system-ui, sans-serif;
+        font-weight: 700;
+        font-size: clamp(2.2rem, 8vw, 4rem);
+        line-height: 1.05;
+        margin: 0 0 0.4rem;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
+        flex-wrap: wrap;
+      }
+      .site-header .lead {
+        font-size: clamp(1rem, 3.5vw, 1.3rem);
+        margin: 0;
+        opacity: 0.95;
+        max-width: 40ch;
+      }
+      .site-header .lead a {
+        color: #fff;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .die-emoji {
+        display: inline-block;
+        animation: tumble 6s ease-in-out infinite;
+      }
+      @keyframes tumble {
         0%,
         70%,
         100% {
-          -webkit-transform: scale3D(1, 1, 1);
-          transform: scale3D(1, 1, 1);
+          transform: rotate(0deg);
         }
-        35% {
-          -webkit-transform: scale3D(0, 0, 1);
-          transform: scale3D(0, 0, 1);
+        80% {
+          transform: rotate(-18deg);
+        }
+        90% {
+          transform: rotate(14deg);
         }
       }
 
+      /* ---------- Sub bar ---------- */
+      .subbar {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: saturate(1.2);
+      }
+      .subbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 60px;
+        flex-wrap: wrap;
+      }
+      .subbar__left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-weight: 600;
+      }
+      .subbar__right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--surface-2);
+        color: var(--text);
+        cursor: pointer;
+        font-size: 1.15rem;
+        line-height: 1;
+        transition:
+          transform 0.15s ease,
+          background-color 0.2s ease;
+      }
+      .theme-toggle:hover {
+        transform: translateY(-1px);
+      }
+      .theme-toggle:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+      .theme-toggle .icon-sun {
+        display: none;
+      }
+      [data-theme='dark'] .theme-toggle .icon-sun {
+        display: inline;
+      }
+      [data-theme='dark'] .theme-toggle .icon-moon {
+        display: none;
+      }
+
+      /* ---------- Main ---------- */
+      main {
+        flex: 1 0 auto;
+        padding: clamp(24px, 6vw, 44px) 0 56px;
+      }
+
+      /* ---------- Footer ---------- */
+      .site-footer {
+        flex-shrink: 0;
+        border-top: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--muted);
+        padding: 22px 0;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      /* ---------- Demo app (styled via TestApp classnames) ---------- */
+      .demo {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        margin-top: 12px;
+      }
+
+      .github-star {
+        margin-top: 6px;
+      }
+
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      /* Collapsible config toggle (mobile) */
+      .config-toggle {
+        display: none;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 14px 18px;
+        font: inherit;
+        font-weight: 600;
+        color: var(--text);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        cursor: pointer;
+      }
+      .config-toggle .chevron {
+        transition: transform 0.2s ease;
+      }
+      .config-toggle[aria-expanded='true'] .chevron {
+        transform: rotate(180deg);
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 18px;
+        padding: 22px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+      }
+      .field > label,
+      .field .field__label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+      }
+
+      .input {
+        width: 100%;
+        height: 44px;
+        padding: 0 12px;
+        font: inherit;
+        color: var(--text);
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        transition:
+          border-color 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+      .input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px var(--ring);
+      }
+      input.input[type='color'] {
+        padding: 4px;
+        cursor: pointer;
+      }
+      .input:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .check {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 0.92rem;
+        color: var(--text);
+        user-select: none;
+      }
+      .check input[type='checkbox'] {
+        width: 20px;
+        height: 20px;
+        accent-color: var(--primary);
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+
+      /* Action row */
+      .action {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 20px 22px;
+      }
+      .action__left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .hint {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .total {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 600;
+        font-size: clamp(1.2rem, 4vw, 1.6rem);
+        color: var(--primary);
+      }
+      .total__value {
+        min-width: 1.5ch;
+        text-align: center;
+      }
+
+      .btn-roll {
+        appearance: none;
+        border: none;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 600;
+        font-size: 1rem;
+        color: var(--primary-contrast);
+        background: var(--header-grad);
+        padding: 0 26px;
+        height: 48px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.12s ease,
+          filter 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .btn-roll:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.05);
+        box-shadow: var(--shadow);
+      }
+      .btn-roll:active {
+        transform: translateY(0);
+      }
+      .btn-roll:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+
+      /* Dice stage */
+      .stage {
+        display: flex;
+        justify-content: center;
+        padding: clamp(24px, 6vw, 48px) 16px;
+        background: radial-gradient(120% 120% at 50% 0%, var(--surface-2) 0%, var(--surface) 70%);
+      }
+
+      /* Spinner */
+      .sk-cube-grid {
+        width: 22px;
+        height: 22px;
+        position: relative;
+      }
+      .sk-cube-grid .sk-cube {
+        width: 33%;
+        height: 33%;
+        background-color: var(--primary);
+        float: left;
+        animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+      }
+      .sk-cube-grid .sk-cube1 {
+        animation-delay: 0.2s;
+      }
+      .sk-cube-grid .sk-cube2 {
+        animation-delay: 0.3s;
+      }
+      .sk-cube-grid .sk-cube3 {
+        animation-delay: 0.4s;
+      }
+      .sk-cube-grid .sk-cube4 {
+        animation-delay: 0.1s;
+      }
+      .sk-cube-grid .sk-cube5 {
+        animation-delay: 0.2s;
+      }
+      .sk-cube-grid .sk-cube6 {
+        animation-delay: 0.3s;
+      }
+      .sk-cube-grid .sk-cube7 {
+        animation-delay: 0s;
+      }
+      .sk-cube-grid .sk-cube8 {
+        animation-delay: 0.1s;
+      }
+      .sk-cube-grid .sk-cube9 {
+        animation-delay: 0.2s;
+      }
       @keyframes sk-cubeGridScaleDelay {
         0%,
         70%,
         100% {
-          -webkit-transform: scale3D(1, 1, 1);
           transform: scale3D(1, 1, 1);
         }
         35% {
-          -webkit-transform: scale3D(0, 0, 1);
           transform: scale3D(0, 0, 1);
         }
       }
-      .footer {
-        bottom: 0;
-        width: 100%;
-        height: 60px;
-        line-height: 60px;
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+        }
       }
-      .jumbotron {
-        margin-bottom: 0;
-      }
-      .littletron {
-        background-color: #e6f2ff;
-        line-height: 20px;
-        padding: 30px 0;
-        margin-bottom: 20px;
-      }
-      .littletron .container {
-        display: flex;
-        justify-content: space-between;
-      }
-      @media screen and (max-width: 420px) {
-        .display-2 {
-          font-size: 3.5rem;
+
+      /* ---------- Mobile: collapse the config panel ---------- */
+      @media (max-width: 640px) {
+        .config-toggle {
+          display: flex;
+        }
+        .config-collapsible {
+          display: none;
+        }
+        .config-collapsible.is-open {
+          display: block;
+        }
+        .controls {
+          grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+          gap: 14px;
+          padding: 18px;
+        }
+        .action {
+          justify-content: center;
+          text-align: center;
+        }
+        .btn-roll {
+          width: 100%;
+        }
+        .action__left {
+          width: 100%;
+          justify-content: center;
         }
       }
     </style>
   </head>
   <body>
-    <div class="jumbotron">
+    <header class="site-header">
       <div class="container">
-        <h1 class="display-2 text-primary">React Dice Complete 🎲</h1>
+        <h1>React Dice Complete <span class="die-emoji">🎲</span></h1>
         <p class="lead">
-          The flexible and amazing dice rolling library build with
-          <a href="http://facebook.github.io/react/" target="_blank">React</a>
+          The flexible and amazing dice rolling library built with
+          <a href="https://react.dev" target="_blank" rel="noopener">React</a>
         </p>
       </div>
-    </div>
-    <div class="littletron">
+    </header>
+
+    <div class="subbar">
       <div class="container">
-        <a
-          href="https://github.com/AdamTyler/react-dice-complete"
-          class="page-subheader__link"
-          target="_blank"
-          >Code and Docs on GitHub</a
-        >
-        <span class="page-subheader__button">
-          <a
-            class="github-button"
-            href="https://github.com/AdamTyler/react-dice-complete"
-            data-show-count="true"
-            data-size="large"
-            data-style="mega"
-            aria-label="Star AdamTyler/react-dice on GitHub"
-            >Star</a
+        <div class="subbar__left">
+          <a href="https://github.com/AdamTyler/react-dice-complete" target="_blank" rel="noopener"
+            >Code &amp; Docs on GitHub</a
           >
-        </span>
+        </div>
+        <div class="subbar__right">
+          <span class="github-star">
+            <a
+              class="github-button"
+              href="https://github.com/AdamTyler/react-dice-complete"
+              data-show-count="true"
+              data-size="large"
+              aria-label="Star AdamTyler/react-dice-complete on GitHub"
+              >Star</a
+            >
+          </span>
+          <button
+            id="themeToggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Toggle dark mode"
+            title="Toggle dark mode"
+          >
+            <span class="icon-moon" aria-hidden="true">🌙</span>
+            <span class="icon-sun" aria-hidden="true">☀️</span>
+          </button>
+        </div>
       </div>
     </div>
-    <main class="container" id="app"></main>
-    <footer class="footer">
+
+    <main class="container">
+      <div id="app"></div>
+    </main>
+
+    <footer class="site-footer">
       <div class="container">
-        <span class="text-muted"
-          >Copyright ©
-          <a href="http://adam-tyler.com" target="_blank">Adam Tyler</a>
-          <script>
-            document.write(new Date().getFullYear())
-          </script>
-          . ISC Licensed.</span
-        >
+        Copyright ©
+        <a href="http://adam-tyler.com" target="_blank" rel="noopener">Adam Tyler</a>
+        <script>
+          document.write(new Date().getFullYear())
+        </script>
+        . ISC Licensed.
       </div>
     </footer>
+
+    <script>
+      ;(function () {
+        var btn = document.getElementById('themeToggle')
+        if (!btn) return
+        btn.addEventListener('click', function () {
+          var root = document.documentElement
+          var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+          root.setAttribute('data-theme', next)
+          try {
+            localStorage.setItem('rdc-theme', next)
+          } catch (e) {}
+          var meta = document.querySelector('meta[name="theme-color"]')
+          if (meta) meta.setAttribute('content', next === 'dark' ? '#4f46e5' : '#6366f1')
+        })
+      })()
+    </script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script
-      src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-      integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-      integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-      integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>
