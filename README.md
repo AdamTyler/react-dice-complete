@@ -1,6 +1,8 @@
 # React Dice 🎲
 
-[![npm version](https://badge.fury.io/js/react-dice-complete.svg)](https://badge.fury.io/js/react-dice-complete)
+[![npm version](https://img.shields.io/npm/v/react-dice-complete.svg)](https://www.npmjs.com/package/react-dice-complete)
+[![CI](https://github.com/AdamTyler/react-dice-complete/actions/workflows/ci.yml/badge.svg)](https://github.com/AdamTyler/react-dice-complete/actions/workflows/ci.yml)
+[![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/AdamTyler/react-dice-complete/actions/workflows/ci.yml)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
 Library for creating multisided dice and rolling them. Check out the demo [here](http://adam-tyler.com/react-dice-complete).
