@@ -10,3 +10,6 @@ npm-debug.log
 
 # build
 dist
+
+# test
+coverage
