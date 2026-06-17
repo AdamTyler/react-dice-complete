@@ -4,6 +4,11 @@
   height: 60px;
   position: relative;
   transform-style: preserve-3d;
+  // iOS/Safari can flatten the 3D context and drop rotated-away faces
+  // (issue #83). Keep the preserve-3d context explicit and promote the
+  // die to its own compositing layer.
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
 
   &.init-roll1 {
     transform: rotateY(180deg);
@@ -78,6 +83,9 @@
     width: 60px;
     position: absolute;
     background: #3e6fa0;
+    // Cull back-facing sides so Safari renders the result face reliably (#83)
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
   .dot {

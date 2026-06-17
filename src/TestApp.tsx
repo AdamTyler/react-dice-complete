@@ -4,7 +4,7 @@ import ReactDice, { ReactDiceRef } from '../lib/ReactDice'
 
 const TestApp = () => {
   const [defaultRoll, setDefaultRoll] = useState(1)
-  const [diceTotal, setDiceTotal] = useState()
+  const [diceTotal, setDiceTotal] = useState<number>()
   const [dieCornerRadius, setDieCornerRadius] = useState(5)
   const [dieSize, setDieSize] = useState(60)
   const [disableIndividual, setDisableIndividual] = useState(false)
@@ -21,7 +21,7 @@ const TestApp = () => {
 
   const reactDice = useRef<ReactDiceRef>(null)
 
-  const rollDone = (value, values) => {
+  const rollDone = (value: number, values: number[]) => {
     setRolling(false)
     setDiceTotal(value)
   }
