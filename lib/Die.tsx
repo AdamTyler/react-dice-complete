@@ -40,7 +40,6 @@ const Die = forwardRef<DieRef, DieProps>(
     }: DieProps,
     ref
   ): JSX.Element => {
-    const dieRef = useRef<HTMLDivElement>(null)
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     useEffect(() => {
@@ -60,6 +59,11 @@ const Die = forwardRef<DieRef, DieProps>(
     const clampedDefault = Math.min(Math.max(defaultRoll || 6, 1), 6)
     const [dieValue, setDieValue] = useState(clampedDefault)
     const [hasRolled, setHasRolled] = useState(false)
+    // Bumped on every roll so React remounts the animated element, which
+    // restarts the CSS keyframe animation reliably (replaces the old
+    // className-reset + forced-reflow hack that could fail to restart on
+    // rapid/overlapping rolls).
+    const [rollKey, setRollKey] = useState(0)
 
     // Only d6 faces are rendered; clamp to 1-6 regardless of sides prop
     const getRandomInt = () => {
@@ -68,15 +72,15 @@ const Die = forwardRef<DieRef, DieProps>(
     }
 
     const rollDie = (value?: number) => {
-      dieRef.current && (dieRef.current.className = `die`)
-      void dieRef.current?.offsetWidth
       const rawRoll = disableRandom ? dieValue : value || getRandomInt()
       const roll = Math.min(Math.max(rawRoll, 1), 6)
-      dieRef.current?.classList.add(`roll${roll}`)
+      // Drive the roll through state and remount the animated node (rollKey)
+      // so the CSS animation always restarts, even on rapid/overlapping rolls.
+      setDieValue(roll)
+      setHasRolled(true)
+      setRollKey((k) => k + 1)
       if (timeoutRef.current !== null) clearTimeout(timeoutRef.current)
       timeoutRef.current = setTimeout(() => {
-        setHasRolled(true)
-        setDieValue(roll)
         onRollDone(roll)
         timeoutRef.current = null
       }, rollTime * 1000)
@@ -172,8 +176,8 @@ const Die = forwardRef<DieRef, DieProps>(
         style={containerStyle}
       >
         <div
+          key={rollKey}
           className={`die ${hasRolled ? 'roll' : 'init-roll'}${dieValue}`}
-          ref={dieRef}
           style={rollStyle}
         >
           <div className='face six' style={Object.assign({}, faceStyle, f6Style)}>
