@@ -64,6 +64,10 @@ const Die = forwardRef<DieRef, DieProps>(
     // className-reset + forced-reflow hack that could fail to restart on
     // rapid/overlapping rolls).
     const [rollKey, setRollKey] = useState(0)
+    // Only fill the corner/interior gaps while the die is mid-roll. At rest the
+    // die sits face-on, where a rounded cube correctly shows empty corners — the
+    // fillers there would just be visible scallops poking past the silhouette.
+    const [isRolling, setIsRolling] = useState(false)
 
     // Only d6 faces are rendered; clamp to 1-6 regardless of sides prop
     const getRandomInt = () => {
@@ -79,8 +83,10 @@ const Die = forwardRef<DieRef, DieProps>(
       setDieValue(roll)
       setHasRolled(true)
       setRollKey((k) => k + 1)
+      setIsRolling(true)
       if (timeoutRef.current !== null) clearTimeout(timeoutRef.current)
       timeoutRef.current = setTimeout(() => {
+        setIsRolling(false)
         onRollDone(roll)
         timeoutRef.current = null
       }, rollTime * 1000)
@@ -150,6 +156,35 @@ const Die = forwardRef<DieRef, DieProps>(
       bottom: `${dieSize / 6}px`,
       right: `${dieSize / 6}px`,
     }
+    // Solid inner core to back the gaps left by rounded faces. The cube is
+    // hollow, so when dieCornerRadius is large the rounded-away corners of
+    // adjacent faces let the page background show through during a roll. A
+    // smaller solid cube in faceColor sits just inside the shell so those gaps
+    // reveal the die's own color instead of empty space. It stays strictly
+    // inside the shell silhouette, so it never pokes past the faces.
+    const coreSize = Math.max(dieSize - dieCornerRadius * 2, 0)
+    const showFillers = isRolling && dieCornerRadius > 0 && coreSize > 0
+    const coreInset = (dieSize - coreSize) / 2
+    const coreFaceStyle: React.CSSProperties = {
+      background: faceColor,
+      height: `${coreSize}px`,
+      width: `${coreSize}px`,
+      position: 'absolute',
+      top: `${coreInset}px`,
+      left: `${coreInset}px`,
+      // visible from both sides so a gap always shows faceColor at any angle
+      backfaceVisibility: 'visible',
+      WebkitBackfaceVisibility: 'visible',
+    }
+    const coreTransforms = [
+      `rotateY(0deg) translateZ(${coreSize / 2}px)`,
+      `rotateX(180deg) translateZ(${coreSize / 2}px)`,
+      `rotateY(90deg) translateZ(${coreSize / 2}px)`,
+      `rotateY(-90deg) translateZ(${coreSize / 2}px)`,
+      `rotateX(90deg) translateZ(${coreSize / 2}px)`,
+      `rotateX(-90deg) translateZ(${coreSize / 2}px)`,
+    ]
+
     // roll styles
     const rollStyle = {
       animationDuration: `${rollTime}s`,
@@ -180,6 +215,15 @@ const Die = forwardRef<DieRef, DieProps>(
           className={`die ${hasRolled ? 'roll' : 'init-roll'}${dieValue}`}
           style={rollStyle}
         >
+          {showFillers &&
+            coreTransforms.map((transform, i) => (
+              <div
+                key={`core-${i}`}
+                className='die-core'
+                aria-hidden='true'
+                style={Object.assign({}, coreFaceStyle, { transform })}
+              />
+            ))}
           <div className='face six' style={Object.assign({}, faceStyle, f6Style)}>
             <span className='dot' style={Object.assign({}, dotStyle, d1Style)} />
             <span className='dot' style={Object.assign({}, dotStyle, d2Style)} />

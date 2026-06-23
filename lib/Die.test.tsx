@@ -259,5 +259,62 @@ describe('Die', () => {
       const face = container.querySelector('.face') as HTMLElement
       expect(face.style.boxShadow).toBe('')
     })
+
+    it('does not render gap fillers while the die is at rest', () => {
+      const { container } = renderDie({ dieCornerRadius: 10 })
+      expect(container.querySelectorAll('.die-core')).toHaveLength(0)
+    })
+
+    it('renders a solid core to back the corner gaps while rolling', () => {
+      vi.useFakeTimers()
+      try {
+        const { container, ref } = renderDie({ dieCornerRadius: 10, dieSize: 60, faceColor: 'rgb(255, 0, 0)' })
+        act(() => ref.current!.rollDie(4))
+        const core = container.querySelectorAll('.die-core')
+        expect(core).toHaveLength(6)
+        const coreFace = core[0] as HTMLElement
+        expect(coreFace.style.background).toBe('rgb(255, 0, 0)')
+        // dieSize - 2 * cornerRadius = 60 - 20 = 40
+        expect(coreFace.style.width).toBe('40px')
+        expect(coreFace.style.height).toBe('40px')
+      } finally {
+        vi.useRealTimers()
+      }
+    })
+
+    it('removes the gap fillers once the roll settles', () => {
+      vi.useFakeTimers()
+      try {
+        const { container, ref } = renderDie({ dieCornerRadius: 10, rollTime: 2 })
+        act(() => ref.current!.rollDie(4))
+        expect(container.querySelectorAll('.die-core')).toHaveLength(6)
+        act(() => vi.advanceTimersByTime(2000))
+        expect(container.querySelectorAll('.die-core')).toHaveLength(0)
+      } finally {
+        vi.useRealTimers()
+      }
+    })
+
+    it('omits the fillers when cornerRadius would consume the whole die', () => {
+      vi.useFakeTimers()
+      try {
+        const { container, ref } = renderDie({ dieCornerRadius: 30, dieSize: 60 })
+        act(() => ref.current!.rollDie(4))
+        expect(container.querySelectorAll('.die-core')).toHaveLength(0)
+      } finally {
+        vi.useRealTimers()
+      }
+    })
+
+    it('omits the fillers when cornerRadius is 0', () => {
+      vi.useFakeTimers()
+      try {
+        const { container, ref } = renderDie({ dieCornerRadius: 0 })
+        act(() => ref.current!.rollDie(4))
+        expect(container.querySelectorAll('.die-core')).toHaveLength(0)
+      } finally {
+        vi.useRealTimers()
+      }
+    })
   })
 })
