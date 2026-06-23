@@ -5,7 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.3.0] - 2026-06-08
+## [2.3.2] - 2026-06-23
+
+### Fixed
+
+- Rounded dice no longer show see-through gaps at their corners while rolling. A solid
+  inner core in `faceColor` now backs the rounded-away vertices during a roll, so the
+  page background is no longer visible through a spinning die at large `dieCornerRadius`.
+- Dice no longer intermittently fail to animate on `rollAll`. The roll is now driven
+  through React state with a remounting key instead of an imperative className/reflow
+  hack, so the CSS animation restarts deterministically even on rapid or overlapping
+  roll presses.
+
+## [2.3.1] - 2026-06-08
 
 ### Changed
 
